@@ -86,6 +86,7 @@ public class PatientDetailMenuController {
 	}
 	
 	
+	
 	@GetMapping("/patientdetail/{patientID}")
 	public String getPatientDetail(@PathVariable Integer patientID, Model model)
 	{
@@ -171,6 +172,7 @@ public class PatientDetailMenuController {
 		return "redirect:/patientdetail/list";
 		
 	}
+	
 	
 	@GetMapping("/patientdetail/search")
 	public String searchPatientDetails(@RequestParam("keyword") String keyword, Model model) {

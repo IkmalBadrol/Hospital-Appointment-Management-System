@@ -19,7 +19,7 @@
   <div th:replace="fragments/header :: header"></div>
 
   <div class="container-fluid" style="max-width: 1000px; margin: 0 auto;">
-    <h2 class="text-center">Patient Information</h2>
+    <h2 class="text-center">Appointment List </h2>
 
     <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
       role="alert">
@@ -38,7 +38,8 @@
           <tr>
             <th scope="col">Appointment ID</th>
             <th scope="col">Patient Name </th>
-        <th style="width:40%" >Doctor Name</th>
+        	<th style="width:40%" >Doctor Name</th>
+        	<th scope="col">Room </th>
             <th scope="col">Date</th>
             <th scope="col">Slot </th>
 
@@ -49,12 +50,12 @@
         </thead>
         <tbody>
           <tr th:each="patientDetail : ${patientDetails}">
-            <th scope="row">[[${patientDetail.patientID}]]</th>
-            <td>[[${patientDetail.patientICNumber}]]</td>
+            <th scope="row">[[${currentPatientDetail.appointmentID}]]</th>
+          <!--    <td>[[${patientDetail.patientICNumber}]]</td>
         <td style="width:40%" >[[${patientDetail.patientName}]]</td>
             <td>[[${patientDetail.patientAge}]]</td>
               <td>[[${patientDetail.patientGender}]]</td>
-        <td style="width:40%" >[[${patientDetail.patientAddress}]]</td>
+        <td style="width:40%" >[[${patientDetail.patientAddress}]]</td>  -->
             
             <td>
              

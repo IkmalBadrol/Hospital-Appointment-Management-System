@@ -2,6 +2,8 @@ package my.hospital.gov.restappointmentapp.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,17 +17,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpEntity;
+
+import my.hospital.gov.restappointmentapp.model.Doctor;
 import my.hospital.gov.restappointmentapp.model.PatientAppointment;
 import my.hospital.gov.restappointmentapp.model.PatientDetail;
+import my.hospital.gov.restappointmentapp.model.RoomSlot;
+import my.hospital.gov.restappointmentapp.model.Room;
+import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 
 @Controller
 public class PatientAppointmentScheduleController {
 	
 	private PatientAppointment patientAppointment;
 	private PatientDetail patientDetail;
+	@Autowired
+	private DoctorRepository doctorRepository;
 	
 	private String defaultURI = "http://localhost:8080/appointmentapp/api/appointments";
 
@@ -102,7 +112,7 @@ public class PatientAppointmentScheduleController {
 	
 	// Validate patient IC Number
 	@GetMapping("/appointments/{patientIC}")
-	public String getAppointment(@PathVariable Integer patientIC, Model model,
+	public String getAppointment(@PathVariable Integer patientIC,  Model model, 
 			@RequestParam(name = "patientIC1", required =false) String patientIC1) {
 		
 		String pageTitle="Appointment";
@@ -128,7 +138,50 @@ public class PatientAppointmentScheduleController {
 		
 		return "appointment";
 	}
+	
+	
+//	@GetMapping("/appointments/{doctorName}")
+//	public String getDoctorName(@PathVariable String roomSlotID, @PathVariable String roomID, @PathVariable String doctorID,
+//			@PathVariable String doctorName, Model model, @RequestParam(name = "doctorName1", required = false) String doctorName1) {
+//	
+//		PatientAppointment patientAppointment = new PatientAppointment();
+////		RoomSlot roomSlot = new RoomSlot();
+////		Room room = new Room();
+//		Doctor doctor = new Doctor();
+//		
+//		if(!Strings.isBlank(doctorName1)) {
+//			//String uri = defaultURI + "/" +patientIC;
+//			
+//			RestTemplate restRoomSlot = new RestTemplate();
+//			RestTemplate restRoom = new RestTemplate();
+//			RestTemplate restDoctor = new RestTemplate();
+//			
+//			doctor = restDoctor.getForObject("http://localhost:8080/appointmentapp/api/patientdetails/patientIC/" + doctorName1, Doctor.class);	
+//			patientAppointment.getRoomSlotID().getRoomID().getDoctorID().getDoctorName();
+//			
+//		}
+//		
+//		model.addAttribute("doctor",doctor);
+//		model.addAttribute("patientAppointment",patientAppointment);
+//		
+//		return "appointment";
+//	}
 
 	
+	@GetMapping("/appointments/doctor")
+	public String getDoctorAppointment(Model model) {
+		String uri = "http://localhost:8080/appointmentapp/api/appointments";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<PatientAppointment[]> responseEntity = restTemplate.getForEntity(uri, PatientAppointment[].class);
+		
+		PatientAppointment patientAppointments[] = responseEntity.getBody();
+		
+		List<PatientAppointment>doctorAppointmentList = Arrays.asList(patientAppointments);
+		
+		model.addAttribute("doctorAppointmentList", doctorAppointmentList);
+		
+		return "appointment";
+	}
 	
 }

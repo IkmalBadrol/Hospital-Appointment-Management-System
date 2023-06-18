@@ -35,10 +35,10 @@ public class Room {
 	}
 	
 	
-	public Doctor getDoctor() {
+	public Doctor getDoctorID() {
 		return doctor;
 	}
-	public void setDoctor(Doctor doctor) {
+	public void setDoctorID(Doctor doctor) {
 		this.doctor = doctor;
 	}
 	

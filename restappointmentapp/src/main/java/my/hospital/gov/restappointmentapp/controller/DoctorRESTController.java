@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +26,13 @@ public class DoctorRESTController {
 	public List<Doctor> getDoctors(){
 		return doctorRepository.findAll();
 	}
+	
+	
+//	// Find doctor's name in database
+//	@GetMapping
+//	public List<Doctor> findDoctorByName(@PathVariable String doctorName){
+//		return doctorRepository.findDoctorByName(doctorName);
+//	}
 	
 //	public Doctor getDoctor(long doctorID) {
 //		

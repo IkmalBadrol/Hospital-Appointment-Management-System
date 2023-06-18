@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<head> 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
   <title>REST Consumer</title>
@@ -58,23 +58,41 @@
           </div>
         
         
+ <!--        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="patientName">Doctor Name</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{doctorName}" minlength="2" maxlength="256" class="form-control"
+                id="doctorName" />
+            </div>
+          </div>
+   --> 
+   
+   
+   <div class="form-group row">
+<label class ="col-sm-3 col-form-label" for="Doctor Name"> Doctor's Name</label>
+<div class="col-sm-9">
+
+<select name="doctor" id="doctor" th:field="*(doctor.Doctor Name)" required> 
+<option th each="docAppointment: $(doctorAppointmentList)"
+		th:value="${docAppointment.getRoomSlotID()}"
+		th: text ="${docAppointment.getRoomSlotID()} + '-' +${docAppointment.getRoomID()} + '-' +${docAppointment.getDoctorID()} + '-' +${docAppointment.getDoctorName()}"
+		
+		/>
+	 </select> 
+	 </div> 
+	 </div>
+	 
+	 
         
-        <div class="form-group row">
+       <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="appointmentDate">Date</label>
             <div class="col-sm-9">
               <input type="date" id="date">
             </div>
           </div>
         
-        
-        
- <!--                   <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="patientName">Name</label>
-            <div class="col-sm-9">
-              <input type="text" th:field="*{patientName}" minlength="2" maxlength="256" class="form-control"
-                id="patientName" />
-            </div>
-          </div>
+
+ <!--                   
           
                     <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="patientPhoneNumber">Phone Number</label>

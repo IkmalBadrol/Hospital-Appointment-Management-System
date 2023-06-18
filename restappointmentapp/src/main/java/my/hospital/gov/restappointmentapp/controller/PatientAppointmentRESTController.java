@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import my.hospital.gov.restappointmentapp.model.Doctor;
 import my.hospital.gov.restappointmentapp.model.PatientAppointment;
+//import my.hospital.gov.restappointmentapp.model.RoomSlot;
 import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 import my.hospital.gov.restappointmentapp.repository.PatientAppointmentRepository;
 
@@ -27,6 +28,8 @@ public class PatientAppointmentRESTController {
 	private PatientAppointmentRepository patientAppointmentRepository;
 	@Autowired
 	private DoctorRepository doctorRepository;
+//	@Autowired
+//	private RoomSlot roomSlot;
 	
 	@GetMapping
 	public List<PatientAppointment> getPatientAppointments(){
@@ -52,6 +55,25 @@ public class PatientAppointmentRESTController {
 	public PatientAppointment updatePatientAppointment(@RequestBody PatientAppointment patientAppointment) {
 	    return patientAppointmentRepository.save(patientAppointment);
 	}
+	
+	
+	
+//	// save doctor id
+//	@PostMapping
+//	public PatientAppointment addDoctorAppointmemt(@RequestBody PatientAppointment patientAppointment) {
+//
+//		return patientAppointmentRepository.save(patientAppointment);
+//	}
+	
+	
+	
+	
+	
+	// Add doctor into appointment
+//	@PostMapping
+//	public Doctor addDoctor(@RequestBody Doctor doctor) {
+//		return doctorRepository.save(doctor);
+//	}
 
 //	@DeleteMapping("{appointmentID}")
 //	public void deletePatientAppointment(@RequestBody PatientAppointment patientAppointment) {

@@ -47,10 +47,10 @@ public class RoomSlot {
 	}
 	
 	
-	public Room getRoom() {
+	public Room getRoomID() {
 		return room;
 	}
-	public void setRoom(Room room) {
+	public void setRoomID(Room room) {
 		this.room = room;
 	}
 }
