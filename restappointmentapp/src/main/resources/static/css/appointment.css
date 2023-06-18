@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+header {
+    background-color: #818181; /* Add background color */
+    padding: 20px; /* Add padding */
+    text-align: center;
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 4px; /* Add border radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+h1 {
+    text-align: center;
+     color: #ffffff; /* Add a custom color */
+    font-size: 32px; /* Increase font size */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 2px; /* Add letter spacing */
+}
+
+
+
+#add-appointment {
+    margin-bottom: 30px;
+}
+
+#add-form label,
+#add-form select {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#appointment-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    text-align: left;
+    background-color: #eee;
+    padding: 10px;
+}
+
+tbody td {
+    padding: 10px;
+}
+
+button {
+    padding: 6px 12px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px; /* Add border radius */
+    transition: background-color 0.3s ease; /* Add smooth transition */
+}
+
+button:hover {
+    background-color: #45a049;
+}

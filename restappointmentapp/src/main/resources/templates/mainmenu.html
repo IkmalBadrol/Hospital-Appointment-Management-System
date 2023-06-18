@@ -1,0 +1,22 @@
+<!-- menu.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="patient.css">
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<body>
+    <header th:replace="fragments/mainmenuheader :: mainmenuheader"></header>
+
+    <h1 class="text-center">Main Menu</h1>
+    <div class="text-center">
+        <button class="btn btn-primary btn-lg btn-block" onclick="window.location.href='patientdetail/0'">Register Patient</button>
+        <button class="btn btn-primary btn-lg btn-block" onclick="window.location.href='appointments/0'">Appointment</button>
+        <button class="btn btn-primary btn-lg btn-block" onclick="window.location.href='patientdetail/list'">Patient List</button>
+            <button class="btn btn-primary btn-lg btn-block" onclick="window.location.href='doctor/list-view'">Doctor List</button>
+    
+    </div>
+</body>
+</html>

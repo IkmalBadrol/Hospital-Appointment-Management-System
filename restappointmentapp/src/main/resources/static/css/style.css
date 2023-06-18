@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+tr:hover{
+	background-color: khaki;	
+}
+
+footer {
+    background-color: #333;
+    color: #ecec00;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Navbar styles */
+.navbar {
+  padding: 10px;
+}
+
+/* Form inline styles */
+.form-inline {
+  display: flex;
+  align-items: center;
+}
+
+.form-control {
+  margin-right: 10px;
+}
+
+.btn {
+  margin-top: 5px;
+}
+ 

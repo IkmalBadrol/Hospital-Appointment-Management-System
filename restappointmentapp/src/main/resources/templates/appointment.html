@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+  <title>REST Consumer</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}" />
+  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  
+  <script type="text/javascript">
+	function checkPatient(){ 
+
+		
+		window.location.href= window.location.pathname+"?patientIC1="+ document.getElementById('patientID').value;
+		console.log(window.location.pathname)
+		console.log(document.getElementById('patientICNumber').value)
+	} 
+	
+	function validatePatientID(event){
+		if(document.getElementById('patientICVal').value == '0'){
+			event.preventDefault();
+			alert('error')
+		}
+	}
+  	</script>
+  
+</head>
+
+<body>
+  <div th:replace="fragments/patientheader :: patientheader"></div>
+
+  <div class="container-fluid">
+    <h2 class="text-center">[[${pageTitle}]]</h2>
+
+    <div class="my-3">
+      <form th:action="@{/appointments/save}" method="post" enctype="multipart/form-data" th:object="${patientAppointment}"
+        style="max-width: 550px; margin: 0 auto">
+
+        <input type="hidden" th:field="*{appointmentID}" />
+
+  <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="patientID">IC Number</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{patientID.patientICNumber}" minlength="12" maxlength="12" class="form-control"
+                id="patientID" />
+                <input id="patientICVal" type="hidden" th:field="*{patientID.patientID}">
+				<input onclick="checkPatient()" type="button" value="Check" class="btn btn-primary btn-sm me-2" />       
+				<div th:if = "${patientID != null}">
+				<p>[[${patientID.PatientName}]]</p>				
+            </div>
+            <div th:if = "${patientID == null}">
+            <p>Not Found!</p>
+            </div>
+          </div>
+        
+        
+        
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="appointmentDate">Date</label>
+            <div class="col-sm-9">
+              <input type="date" id="date">
+            </div>
+          </div>
+        
+        
+        
+ <!--                   <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="patientName">Name</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{patientName}" minlength="2" maxlength="256" class="form-control"
+                id="patientName" />
+            </div>
+          </div>
+          
+                    <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="patientPhoneNumber">Phone Number</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{patientPhoneNumber}" minlength="8" maxlength="11" class="form-control"
+                id="patientPhoneNumber" />
+            </div>
+          </div>
+          
+                    <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="patientAge">Age</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{patientAge}" minlength="1" maxlength="2" class="form-control"
+                id="patientAge" />
+            </div>
+          </div>
+                   <div class="form-group row">
+  <label class="col-sm-3 col-form-label" for="patientGender">Gender</label>
+  <div class="col-sm-9">
+    <select th:field="*{patientGender}" class="form-control" id="patientGender">
+      <option value="L">Male</option>
+      <option value="P">Female</option>
+    </select>
+  </div>
+</div>
+                     <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="patientAddress">Address</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{patientAddress}" minlength="1" maxlength="256" class="form-control"
+                id="patientAddress" />
+            </div>
+          </div>
+-->
+
+ <!--          <div class="text-center">
+            <input type="submit" value="Save" class="btn btn-primary btn-sm mr-2" onclick = "validatePatientID(event)"/>
+            <input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary btn-sm" />
+          </div>  --> 
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div th:replace="fragments/footer :: footer"></div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#btnCancel").on("click", function () {
+        window.location = "[[@{/appointments/schedule}]]";
+      });
+    });
+  </script>
+
+</body>
+
+</html>
