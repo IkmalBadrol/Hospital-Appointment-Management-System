@@ -60,11 +60,11 @@ public class PatientAppointmentScheduleController {
 	// @ModelAttribute will bind the incoming request data to patientAppointment
 	// @RequestParam  retrieve appointmentID from request parameters
 	@RequestMapping("/appointments/save")
-	public String updatePatientAppointment (@ModelAttribute PatientAppointment patientAppointment, @RequestParam long appointmentID)
+	public String updatePatientAppointment (@ModelAttribute PatientAppointment patientAppointment)
 	{
 		//Create a new RestTemplate 
 		// HTTP request
-		RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplateAppointment = new RestTemplate();
 		
 		//Create request body
 		HttpEntity<PatientAppointment> request = new HttpEntity<PatientAppointment>(patientAppointment);
@@ -74,24 +74,24 @@ public class PatientAppointmentScheduleController {
 		
 		
 		// Check if appointment id existed
-		if (appointmentID > 0)
+		if(patientAppointment.getAppointmentID()> 0)
 		{
 			// This block update a new order type and
 			// Send request as PUT
 			// Send request and update appointment
 			// Updated appointment return as PatienAppointment object
-			restTemplate.put(defaultURI + "/" + appointmentID, request, PatientAppointment.class);
+			restTemplateAppointment.put(defaultURI, request, PatientAppointment.class);
 			
 		}else {
 			//This block add a new order type
 			//Send request as POST
-			patientAppointmentResponse = restTemplate.postForObject(defaultURI, request, String.class);
+			patientAppointmentResponse = restTemplateAppointment.postForObject(defaultURI, request, String.class);
 		}
 		
 		System.out.println(patientAppointmentResponse);
 		
 		//Redirect request to display a list of order type
-		return "redirect:/appointment/save";
+		return "redirect:/appointments/appointmentList";
 		
 	}
 	
@@ -109,7 +109,8 @@ public class PatientAppointmentScheduleController {
 //		model.addAtt
 //	}
 	
-	
+
+
 	// Validate patient IC Number
 	@GetMapping("/appointments/{patientIC}")
 	public String getAppointment(@PathVariable Integer patientIC,  Model model, 
@@ -126,61 +127,132 @@ public class PatientAppointmentScheduleController {
 			
 			RestTemplate restPatient = new RestTemplate();
 			currentPatientDetail = restPatient.getForObject("http://localhost:8080/appointmentapp/api/patientdetails/patientIC/" + patientIC1, PatientDetail.class);	
-			patientAppointment.setPatientID(currentPatientDetail);
-			
+			patientAppointment.setPatientID(currentPatientDetail);			
 		}
 		
-		System.out.println(currentPatientDetail.getPatientID());
+//		RestTemplate restTemplate = new RestTemplate();
+//		ResponseEntity<PatientAppointment[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/appointmentapp/api/appointments", PatientAppointment[].class);
+//		
+//		PatientAppointment patientAppointments[] = responseEntity.getBody();
+//		
+//		List<PatientAppointment> AppointmentList = Arrays.asList(patientAppointments);
+		
+	
+		RestTemplate restTemplateRoomSlot = new RestTemplate();
+		ResponseEntity<RoomSlot[]> responseRoomSlot = restTemplateRoomSlot.getForEntity("http://localhost:8080/appointmentapp/api/roomslots", RoomSlot[].class);
+		
+		RoomSlot roomSlotArray[] = responseRoomSlot.getBody();
+		
+		List<RoomSlot>slotList = Arrays.asList(roomSlotArray);
+		
+		for( RoomSlot roomslot : slotList) {
+			
+			System.out.println("test data" + roomslot.getRoomID().getDoctorID());
+		}
+			
+		
+//		RestTemplate restTemplateDoctor = new RestTemplate();
+//		ResponseEntity<Doctor[]> responseDoctor = restTemplateDoctor.getForEntity("http://localhost:8080/appointmentapp/api/doctors", Doctor[].class);
+//		
+//		Doctor doctorArray[] = responseDoctor.getBody();
+//		
+//		List<Doctor>doctorList = Arrays.asList(doctorArray);
+		
+		
 	    
 		model.addAttribute("patientAppointment", patientAppointment);
 		model.addAttribute("Appointment",pageTitle);
 		model.addAttribute("patientID", currentPatientDetail);
+		model.addAttribute("slotList", slotList);
+		//model.addAttribute("AppointmentList", AppointmentList);
+		//model.addAttribute("roomList", roomList);
+		//model.addAttribute("doctorList", doctorList);
 		
 		return "appointment";
 	}
 	
 	
-//	@GetMapping("/appointments/{doctorName}")
-//	public String getDoctorName(@PathVariable String roomSlotID, @PathVariable String roomID, @PathVariable String doctorID,
-//			@PathVariable String doctorName, Model model, @RequestParam(name = "doctorName1", required = false) String doctorName1) {
-//	
-//		PatientAppointment patientAppointment = new PatientAppointment();
-////		RoomSlot roomSlot = new RoomSlot();
-////		Room room = new Room();
-//		Doctor doctor = new Doctor();
-//		
-//		if(!Strings.isBlank(doctorName1)) {
-//			//String uri = defaultURI + "/" +patientIC;
-//			
-//			RestTemplate restRoomSlot = new RestTemplate();
-//			RestTemplate restRoom = new RestTemplate();
-//			RestTemplate restDoctor = new RestTemplate();
-//			
-//			doctor = restDoctor.getForObject("http://localhost:8080/appointmentapp/api/patientdetails/patientIC/" + doctorName1, Doctor.class);	
-//			patientAppointment.getRoomSlotID().getRoomID().getDoctorID().getDoctorName();
-//			
-//		}
-//		
-//		model.addAttribute("doctor",doctor);
-//		model.addAttribute("patientAppointment",patientAppointment);
-//		
-//		return "appointment";
-//	}
+	@GetMapping("/appointments/appointmentList")
+	public String getAppointmentsList(Model model) {
+		
+		//The URI for GET Doctors
+		String uri = "http://localhost:8080/appointmentapp/api/appointments";
+		
+		//Get a list doctors from the web services
+		RestTemplate restTemplateAppointmentsList = new RestTemplate();
+		ResponseEntity<PatientAppointment[]> response = restTemplateAppointmentsList.getForEntity(uri, PatientAppointment[].class);
+		
+		//Parse JSON data to array of object  
+		PatientAppointment appointmentList[] = response.getBody();
+		
+		//Parse an array to a list object
+		List<PatientAppointment> apptList = Arrays.asList(appointmentList);
+		
+		//Attach list to model as attribute
+		model.addAttribute("apptList", apptList);
+		
+		return "appointmentlist";
+	}
 
 	
 	@GetMapping("/appointments/doctor")
 	public String getDoctorAppointment(Model model) {
-		String uri = "http://localhost:8080/appointmentapp/api/appointments";
+		//String uri = "http://localhost:8080/appointmentapp/api/appointments";
+		
+		//PatientAppointment patientAppointment = new PatientAppointment();
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<PatientAppointment[]> responseEntity = restTemplate.getForEntity(uri, PatientAppointment[].class);
+		ResponseEntity<PatientAppointment[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/appointmentapp/api/appointments", PatientAppointment[].class);
 		
 		PatientAppointment patientAppointments[] = responseEntity.getBody();
 		
-		List<PatientAppointment>doctorAppointmentList = Arrays.asList(patientAppointments);
+		List<PatientAppointment> AppointmentList = Arrays.asList(patientAppointments);
 		
-		model.addAttribute("doctorAppointmentList", doctorAppointmentList);
+		for( PatientAppointment appointment : AppointmentList) {
+			
+			System.out.println("test data" + appointment.getRoomSlotID().getRoomID().getDoctorID().getDoctorName());
+		}
+	
 		
+		
+		RestTemplate restTemplateRoomSlot = new RestTemplate();
+		ResponseEntity<RoomSlot[]> responseRoomSlot = restTemplateRoomSlot.getForEntity("http://localhost:8080/appointmentapp/api/roomslots", RoomSlot[].class);
+		
+		RoomSlot roomSlotArray[] = responseRoomSlot.getBody();
+		
+		List<RoomSlot>slotList = Arrays.asList(roomSlotArray);
+		
+		
+		
+		RestTemplate restTemplateRoom = new RestTemplate();
+		ResponseEntity<Room[]> responseRoom = restTemplateRoom.getForEntity("http://localhost:8080/appointmentapp/api/rooms", Room[].class);
+		
+		Room roomArray[] = responseRoom.getBody();
+		
+		List<Room>roomList = Arrays.asList(roomArray);
+		
+for( PatientAppointment appointment : AppointmentList) {
+			
+			System.out.println("test data" + appointment.getRoomSlotID().getRoomID().getDoctorID().getDoctorName());
+		}
+
+		
+		
+		
+		RestTemplate restTemplateDoctor = new RestTemplate();
+		ResponseEntity<Doctor[]> responseDoctor = restTemplateDoctor.getForEntity("http://localhost:8080/appointmentapp/api/doctors", Doctor[].class);
+		
+		Doctor doctorArray[] = responseDoctor.getBody();
+		
+		List<Doctor>doctorList = Arrays.asList(doctorArray);
+		
+		//System.out.println(responseEntity.getAppointmentID());
+		
+		model.addAttribute("AppointmentList", AppointmentList);
+		model.addAttribute("slotList", slotList);
+		model.addAttribute("roomList", roomList);
+		model.addAttribute("doctorList", doctorList);
+				
 		return "appointment";
 	}
 	

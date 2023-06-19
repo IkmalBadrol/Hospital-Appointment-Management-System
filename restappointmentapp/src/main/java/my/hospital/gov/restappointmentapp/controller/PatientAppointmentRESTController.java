@@ -1,5 +1,6 @@
 package my.hospital.gov.restappointmentapp.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,38 +43,19 @@ public class PatientAppointmentRESTController {
 //		PatientAppointment patientAppointment = patientAppointmentRepository.findById(appointmentID).get();
 //		return patientAppointment;
 //	}
+	
 
 	@PostMapping
 	public PatientAppointment addPatientAppointment(@RequestBody PatientAppointment patientAppointment) {
-//		String doctorId = patientAppointment.getDoctorID().getDoctorID();
-//		Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
-//		patientAppointment.setDoctorID(doctor);
 		return patientAppointmentRepository.save(patientAppointment);
 	}
-
+	
+	
 	@PutMapping
 	public PatientAppointment updatePatientAppointment(@RequestBody PatientAppointment patientAppointment) {
 	    return patientAppointmentRepository.save(patientAppointment);
 	}
 	
-	
-	
-//	// save doctor id
-//	@PostMapping
-//	public PatientAppointment addDoctorAppointmemt(@RequestBody PatientAppointment patientAppointment) {
-//
-//		return patientAppointmentRepository.save(patientAppointment);
-//	}
-	
-	
-	
-	
-	
-	// Add doctor into appointment
-//	@PostMapping
-//	public Doctor addDoctor(@RequestBody Doctor doctor) {
-//		return doctorRepository.save(doctor);
-//	}
 
 //	@DeleteMapping("{appointmentID}")
 //	public void deletePatientAppointment(@RequestBody PatientAppointment patientAppointment) {

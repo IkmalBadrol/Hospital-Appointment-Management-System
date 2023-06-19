@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <div th:replace="fragments/header :: header"></div>
+  <div th:replace="fragments/patientheader :: patientheader"></div>
 
   <div class="container-fluid" style="max-width: 1000px; margin: 0 auto;">
     <h2 class="text-center">Patient Information</h2>
@@ -119,7 +119,7 @@
       $("#btnClear").on("click", function (e) {
         e.preventDefault();
         $("#keyword").text("");
-        window.location = "[[@{/patientdetail/list}]]";
+        window.location = "[[@{/appointments/appointmentList}]]";
       });
     });
   </script>

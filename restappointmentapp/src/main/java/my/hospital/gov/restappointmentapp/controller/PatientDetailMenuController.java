@@ -143,10 +143,8 @@ public class PatientDetailMenuController {
 		}
 		else
 		{
-			//add new patient
-			
-			//POST request
-			
+			//add new patient			
+			//POST request			
 			patientDetailResponse=restTemplate.postForObject(defaultURI, request, String.class);
 		}
 	System.out.println(patientDetailResponse);

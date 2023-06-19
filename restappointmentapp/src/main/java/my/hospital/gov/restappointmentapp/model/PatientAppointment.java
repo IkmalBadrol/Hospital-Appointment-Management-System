@@ -23,7 +23,7 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name = "appointmentID")
-		private String appointmentID;
+		private int appointmentID;
 		
 		@Column(name = "date")
 		private Date date;
@@ -48,10 +48,10 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 //		@JoinColumn(name = "staffID")
 //		private Staff staffID;
 		
-		public String getAppointmentID() {
+		public int getAppointmentID() {
 			return appointmentID;
 		}
-		public void setAppointmentID(String appointmentID) {
+		public void setAppointmentID(int appointmentID) {
 			this.appointmentID = appointmentID;
 		}
 		

@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <div th:replace="fragments/header :: header"></div>
+  <div th:replace="fragments/patientheader :: patientheader"></div>
 
   <div class="container-fluid">
     <h2 class="text-center">[[${pageTitle}]]</h2>
@@ -36,7 +36,7 @@
             <label class="col-sm-3 col-form-label" for="patientICNumber">IC Number</label>
             <div class="col-sm-9">
               <input type="text" th:field="*{patientICNumber}" minlength="12" maxlength="12" class="form-control"
-                id="patientICNumber" />
+                id="patientICNumber"  />
             </div>
           </div>
         
