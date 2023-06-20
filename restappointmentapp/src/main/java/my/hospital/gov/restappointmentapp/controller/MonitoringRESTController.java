@@ -23,12 +23,17 @@ public class MonitoringRESTController {
 	@Autowired
 	private PatientAppointmentRepository appointment;
 	
-	@GetMapping
-	public ResponseEntity<List<PatientAppointment>> getDataFromTables() {
-	    // Your code to retrieve data from tables
-		List<PatientAppointment> dataList = appointment.findAll();
+//	@GetMapping
+//	public ResponseEntity<List<PatientAppointment>> getDataFromTables() {
+//	    // Your code to retrieve data from tables
+//		List<PatientAppointment> dataList = appointment.findAll();
+//	
+//		return ResponseEntity.ok(dataList);
+//	}
 	
-		return ResponseEntity.ok(dataList);
+	@GetMapping
+	public List<PatientAppointment> getPatientAppointments(){
+		return appointment.findAll();
 	}
 	
 }

@@ -27,9 +27,7 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 		
 		@Column(name = "date")
 		private Date date;
-		
-		@Column(name = "treatmentStatus")
-		private String treatmentStatus;
+	
 		
 //		@Column(name = "time")
 //		private Time time;
@@ -104,12 +102,7 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 			this.roomSlotID = roomSlotID;
 		}
 		
-		public String getTreatmentStatus() {
-			return treatmentStatus;
-		}
-		public void setTreatmentStatus(String treatmentStatus) {
-			this.treatmentStatus = treatmentStatus;
-		}
+
 //		public Staff getStaffID() {
 //			return staffID;
 //		}

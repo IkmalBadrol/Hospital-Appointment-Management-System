@@ -27,7 +27,7 @@
 </head>
 
 <body>
-  <div th:replace="fragments/headerMonitoring :: headerMonitoring"></div>
+<!--   <div th:replace="fragments/headerMonitoring :: headerMonitoring"></div> -->
 
   <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
     <h2 class="text-center">List of Appointment</h2>
@@ -58,7 +58,7 @@
       </form>
     </div> -->
 
-    <div th:if="${PatientAppointment.size() > 0}">
+    <div th:if="${PatientAppointments.size() > 0}">
       <table class="table table-hover table-responsive-xl">
         <thead class="thead-light">
           <tr>
@@ -73,7 +73,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="ar: ${PatientAppointment}" th:if="${#dates.format(ar.date, 'yyyy-MM-dd') == #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+          <tr th:each="ar: ${PatientAppointments}" th:if="${#dates.format(ar.date, 'yyyy-MM-dd') == #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
             <th scope="row">[[${ar.appointmentID}]]</th>
             <td>[[${ar.date}]]</td>
             <td>[[${ar.roomSlotID.roomID.doctorID.doctorName}]]</td>
@@ -100,7 +100,7 @@
       </table>
     </div>
 
-    <div class="" th:unless="${PatientAppointment.size() > 0}">
+    <div class="" th:unless="${PatientAppointments.size() > 0}">
       <span>No record found!</span>
     </div>
   </div>

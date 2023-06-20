@@ -56,7 +56,7 @@ public class MonitoringMenuController
 		List<PatientAppointment> appointmentList = Arrays.asList(appointment);
 		
 		//Attach list to model as attribute
-		model.addAttribute("PatientAppointment", appointmentList);
+		model.addAttribute("PatientAppointments", appointmentList);
 		
 		return "allAppointment";
 	}
