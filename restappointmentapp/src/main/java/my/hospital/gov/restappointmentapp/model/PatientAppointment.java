@@ -44,10 +44,19 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 		@JoinColumn(name = "roomSlotID")
 		private RoomSlot roomSlotID;
 		
+		@Column(name="treatmentStatus")
+		private String treatmentStatus;
+		
 //		@ManyToOne
 //		@JoinColumn(name = "staffID")
 //		private Staff staffID;
 		
+		public String getTreatmentStatus() {
+			return treatmentStatus;
+		}
+		public void setTreatmentStatus(String treatmentStatus) {
+			this.treatmentStatus = treatmentStatus;
+		}
 		public int getAppointmentID() {
 			return appointmentID;
 		}
@@ -83,7 +92,8 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 			this.patientID = patientID;
 		}
 		
-		public RoomSlot getRoomSlotID() {
+		public RoomSlot getRoomSlotID()
+        {
 			return roomSlotID;
 		}
 		public void setRoomSlotID(RoomSlot roomSlotID) {
@@ -95,6 +105,7 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 //		public void setStaffID(Staff staffID) {
 //			this.staffID = staffID;
 //		}
+	
 		
 		
 	}

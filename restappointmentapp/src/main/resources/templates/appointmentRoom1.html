@@ -1,0 +1,179 @@
+<header>
+    <h1>Appointment at Room 1</h1>
+</header>
+
+<nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+  </form>
+</nav>
+
+
+
+<table id="AppointmentRoom1">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+  <title>REST Consumer</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+  <div th:replace="fragments/header :: header"></div>
+
+  <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
+    <h2 class="text-center">List of Appointment</h2>
+
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
+      role="alert">
+      [[${message}]]
+      <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <!-- <div class="my-3">
+      <form th:action="@{/tutorials}">
+        <div class="row d-flex">
+          <div class="col-md-6 mt-2">
+            <div class="search">
+              <i class="fa fa-search"></i>
+              <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
+                placeholder="Enter keyword">
+              <button type="submit" class="btn btn-secondary">Search</button>
+            </div>
+          </div>
+          <div class="col-md-6 mt-2">
+            <button id="btnClear" class="btn btn-info">Clear</button>
+          </div>
+        </div>
+      </form>
+    </div> -->
+
+    <div th:if="${AppointmentRoom1.size() > 0}">
+      <table class="table table-hover table-responsive-xl">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Appointment ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Doctor</th>
+            <th scope="col">Patient</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">Finished Time</th>
+            <th scope="col">Action</th>
+            <th scope="col">Status</th>
+            <!-- <th scope="col">Action</th>  -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="ar1 : ${AppointmentRoom1}" th:if="${ar1.roomSlotID.roomID.roomID == 'D-02-001' && #dates.format(ar1.date, 'yyyy-MM-dd') == #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+            <th scope="row">[[${ar1.appointmentID}]]</th>
+            <td>[[${ar1.date}]]</td>
+            <td>[[${ar1.roomSlotID.roomID.DoctorID.DoctorName}]]</td>
+            <td>[[${ar1.patientID.patientName}]]</td>
+            <td>[[${ar1.roomSlotID.timeStart}]]</td>
+            <td>[[${ar1.roomSlotID.timeEnd}]]</td>
+            <td>
+ 				<button class="btn btn-success btn-finished" th:data-appointment-id="${ar1.appointmentID}">Finished</button>
+			</td>
+			<td>[[${ar1.treatmentStatus}]]</td>
+            <td>
+              <!-- A link to edit an order type -->
+              <!-- <a th:href="@{'/ordertype/' + ${orderType.orderTypeId}}" 
+              	title="Edit this order type"
+                class="fa-regular fa-pen-to-square icon-dark"></a>
+              &nbsp; -->
+              
+              <!-- A link to delete an order type -->
+              <!-- <a th:href="@{'/ordertype/delete/' + ${orderType.orderTypeId}}" 
+              th:orderTypeCode="${orderType.code}" id="btnDelete"
+                title="Delete this order type" 
+                class="fa-regular fa-trash-can icon-dark btn-delete"></a> -->
+
+            </td> 
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="" th:unless="${AppointmentRoom1.size() > 0}">
+      <span>No record found!</span>
+    </div>
+  </div>
+
+  <div class="modal fade text-center" id="confirmModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <span id="confirmText"></span>
+        </div>
+
+        <div class="modal-footer">
+          <a type="button" id="yesBtn" class="btn btn-danger">Yes</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:replace="fragments/footer :: footer"></div>
+
+    <script type="text/javascript">
+  $(document).ready(function () {
+    // Event handler for the "Finished" button
+    $(".btn-finished").on("click", function () {
+      var appointmentId = $(this).attr("th:data-appointment-id");
+      // Perform the necessary actions when the "Finished" button is clicked
+      // E.g., make an AJAX request to update the appointment status to "Finished"
+      // You can add your custom logic here
+      console.log("Finished button clicked for appointment ID: " + appointmentId);
+    });
+  });
+  
+//Function to update the appointment status
+  function updateAppointmentStatus(appointmentId, newStatus) {
+    // Make an AJAX request to update the appointment status
+    $.ajax({
+      url: "/update-appointment-status",
+      method: "POST",
+      data: {
+        appointmentId: appointmentId,
+        newStatus: newStatus
+      },
+      success: function (response) {
+        console.log("Appointment status updated successfully.");
+        // Update the status column in the table with the new status
+        $("#" + appointmentId + " .status").text(newStatus);
+      },
+      error: function (xhr, status, error) {
+        console.error("Error updating appointment status: " + error);
+        // Handle any errors that occur during the update process
+      }
+    });
+  }
+</script>
+
+
+</body>
+
+
+<footer>
+    <p>&copy; Dermatologist Department</p>
+</footer>
+</body>
+</html>
