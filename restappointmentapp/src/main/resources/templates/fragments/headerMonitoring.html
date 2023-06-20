@@ -1,0 +1,41 @@
+	<header th:fragment="header">
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" th:href="@{/mainmenu}">
+      Main Menu
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="topNavbar">
+      <ul class="navbar-nav">
+      
+      	<!-- A menu link to lists appointment -->
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/appointment/data}">ALL</a>
+        </li>
+        
+      	<!-- A menu link to lists room 1 -->
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/appointment/room1}">Room 1</a>
+        </li>
+        
+        	<!-- A menu link to lists room 2 -->
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/appointment/room2}">Room 2</a>
+        </li>
+        
+        
+        	<!-- A menu link to lists room 3 -->
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/appointment/room3}">Room 3</a>
+        </li>
+        
+        <!-- A menu link to add a new order type -->
+        <!-- <li class="nav-item">
+          <a class="nav-link" th:href="@{/ordertype/0}">Add New Order Type</a>
+        </li> -->
+        
+      </ul>
+    </div>
+  </nav>
+</header>

@@ -18,7 +18,7 @@
   <title>REST Consumer</title>
 
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/styleMonitor.css}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -27,7 +27,7 @@
 </head>
 
 <body>
-  <div th:replace="fragments/header :: header"></div>
+  <div th:replace="fragments/headerMonitoring :: headerMonitoring"></div>
 
   <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
     <h2 class="text-center">List of Appointment</h2>
@@ -76,7 +76,7 @@
           <tr th:each="ar: ${PatientAppointment}" th:if="${#dates.format(ar.date, 'yyyy-MM-dd') == #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
             <th scope="row">[[${ar.appointmentID}]]</th>
             <td>[[${ar.date}]]</td>
-            <td>[[${ar.roomSlotID.roomID.DoctorID.DoctorName}]]</td>
+            <td>[[${ar.roomSlotID.roomID.doctorID.doctorName}]]</td>
             <td>[[${ar.patientID.patientName}]]</td>
             <td>[[${ar.roomSlotID.timeStart}]]</td>
             <td>[[${ar.roomSlotID.timeEnd}]]</td>
@@ -108,7 +108,7 @@
   <div class="modal fade text-center" id="confirmModal">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-headerMonitoring">
           <h5 class="modal-title">Delete Confirmation</h5>
           <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>

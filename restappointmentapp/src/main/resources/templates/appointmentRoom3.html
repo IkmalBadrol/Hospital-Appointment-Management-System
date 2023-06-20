@@ -18,7 +18,7 @@
   <title>REST Consumer</title>
 
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/styleMonitor.css}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -27,7 +27,7 @@
 </head>
 
 <body>
-  <div th:replace="fragments/header :: header"></div>
+  <div th:replace="fragments/headerMonitorin :: headerMonitorin"></div>
 
   <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
     <h2 class="text-center">List of Appointment</h2>
@@ -77,7 +77,7 @@
           <tr th:each="ar3 : ${AppointmentRoom3}" th:if="${ar3.roomSlotID.roomID.roomID == 'D-02-003' && #dates.format(ar3.date, 'yyyy-MM-dd') == #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
             <th scope="row">[[${ar3.appointmentID}]]</th>
             <td>[[${ar3.date}]]</td>
-            <td>[[${ar3.roomSlotID.roomID.DoctorID.DoctorName}]]</td>
+            <td>[[${ar3.roomSlotID.roomID.doctorID.doctorName}]]</td>
             <td>[[${ar3.patientID.patientName}]]</td>
             <td>[[${ar3.roomSlotID.timeStart}]]</td>
             <td>[[${ar3.roomSlotID.timeEnd}]]</td>
@@ -86,6 +86,8 @@
 			</td>
 			<td>[[${ar3.treatmentStatus}]]</td>
             <td>
+            
+            
               <!-- A link to edit an order type -->
               <!-- <a th:href="@{'/ordertype/' + ${orderType.orderTypeId}}" 
               	title="Edit this order type"
@@ -112,7 +114,7 @@
   <div class="modal fade text-center" id="confirmModal">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-headerMonitoring">
           <h5 class="modal-title">Delete Confirmation</h5>
           <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
