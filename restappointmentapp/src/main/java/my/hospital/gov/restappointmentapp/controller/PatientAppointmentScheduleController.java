@@ -115,7 +115,7 @@ public class PatientAppointmentScheduleController {
 
 	// Validate patient IC Number
 	@GetMapping("/appointments/{patientIC}")
-	public String getAppointment(@PathVariable Integer patientIC,  Model model, 
+	public String getAppointment(@PathVariable String patientIC,  Model model, 
 			@RequestParam(name = "patientIC1", required =false) String patientIC1) {
 		
 		String pageTitle="Appointment";
