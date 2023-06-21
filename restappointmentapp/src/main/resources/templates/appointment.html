@@ -15,7 +15,8 @@
 	function checkPatient(){ 
 
 		
-		window.location.href= window.location.pathname+"?patientIC1="+ document.getElementById('patientID').value;
+		window.location.href= window.location.pathname+"?patientIC1="+ document.getElementById('patientID').value
+				+"&date=" + document.getElementById('date').value
 		console.log(window.location.pathname)
 		console.log(document.getElementById('patientICNumber').value)
 	} 
@@ -63,18 +64,19 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="">Date</label>
             <div class="col-sm-9">
-              <input type="date" th:field="*{date}" class="form-control" id="date"  />
+              <input type="date" th:field="*{date}"  class="form-control" id="date" onchange="findDate(event)" />
             </div>
           </div>
+          
         
- <div class="form-group row">
-			<label class ="col-sm-3 col-form-label" for="RoomSlot"> Details</label>
+ <div  class="form-group row">
+			<label class ="col-sm-3 col-form-label" for="RoomSlot"> Room </label>
 			<div class="col-sm-9">
-				<select name="roomSlotID" id="roomSlotIDt" th:field="*{roomSlotID.roomSlotID}" required class="form-control"> 
+				<select name="roomSlotID" id="roomSlotID" th:field="*{roomSlotID.roomSlotID}" required class="form-control"> 
 					<option th:each="docAppointment : ${slotList}"
 							th:value="${docAppointment.getRoomSlotID()}"
 							th:text ="${docAppointment.getRoomID().getDoctorID().getDoctorName()}
-							 + ', ' + ${docAppointment.getRoomID().getRoomName} 
+							 + ', ' + ${docAppointment.getRoomID().getRoomName()} 
 							 + ', Slot (' + ${docAppointment.getTimeStart()}
 							 + '-' + ${docAppointment.getTimeEnd()} + ')'" />	
 				 </select> 
@@ -133,7 +135,21 @@
 		    
 		    // Set the minimum value of the input field to the current date
 		    dateInput.min = formattedDate;
+		    
+		    
+		    function findDate(e){
+		    	console.log(e.target)
+		    	window.location.href= window.location.pathname+"?patientIC1="+ document.getElementById('patientID').value
+				+"&date=" + document.getElementById('date').value
+		    }
+		    
+		    
+		    
 		</script>
+
+
+		
+
 
 
  <!--                   

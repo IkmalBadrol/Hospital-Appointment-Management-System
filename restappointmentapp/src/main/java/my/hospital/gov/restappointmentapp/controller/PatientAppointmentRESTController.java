@@ -27,10 +27,7 @@ public class PatientAppointmentRESTController {
 
 	@Autowired
 	private PatientAppointmentRepository patientAppointmentRepository;
-	@Autowired
-	private DoctorRepository doctorRepository;
-//	@Autowired
-//	private RoomSlot roomSlot;
+
 	
 	@GetMapping
 	public List<PatientAppointment> getPatientAppointments(){
@@ -45,9 +42,9 @@ public class PatientAppointmentRESTController {
 //	}
 	
 	
-
+	// This annotation maps HTTP POST requests to this method.
 	@PostMapping
-	public PatientAppointment addPatientAppointment(@RequestBody PatientAppointment patientAppointment) {
+	public PatientAppointment addPatientAppointment(@RequestBody PatientAppointment patientAppointment) { 
 		return patientAppointmentRepository.save(patientAppointment);
 	}
 	
@@ -56,6 +53,13 @@ public class PatientAppointmentRESTController {
 	public PatientAppointment updatePatientAppointment(@RequestBody PatientAppointment patientAppointment) {
 	    return patientAppointmentRepository.save(patientAppointment);
 	}
+	
+	
+	@PutMapping("/Status")
+	public PatientAppointment updateAppointmentStatus(@RequestBody PatientAppointment patientAppointment) {
+	    return patientAppointmentRepository.save(patientAppointment);
+	}
+	
 	
 
 //	@DeleteMapping("{appointmentID}")

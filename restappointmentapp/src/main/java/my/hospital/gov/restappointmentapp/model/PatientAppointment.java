@@ -28,16 +28,6 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 		@Column(name = "date")
 		private Date date;
 	
-		
-//		@Column(name = "time")
-//		private Time time;
-		
-//		//Foreign key 
-//		@ManyToOne
-//		@JoinColumn(name = "doctorID")
-//		private Doctor doctorID;
-		
-	
 		@ManyToOne
 		@JoinColumn(name = "patientID")
 		private PatientDetail patientID;
@@ -49,9 +39,6 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 		@Column(name="treatmentStatus")
 		private String treatmentStatus;
 		
-//		@ManyToOne
-//		@JoinColumn(name = "staffID")
-//		private Staff staffID;
 		
 		public String getTreatmentStatus() {
 			return treatmentStatus;

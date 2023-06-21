@@ -82,15 +82,20 @@
             <td>[[${ar1.roomSlotID.timeStart}]]</td>
             <td>[[${ar1.roomSlotID.timeEnd}]]</td>
             <td>
- 				<button class="btn btn-success btn-finished" th:data-appointment-id="${ar1.appointmentID}">Finished</button>
+            
+         <button  class="btn btn-success btn-finished" th:data-appointment-id="${ar1.appointmentID}">Finished</button>
+    
 			</td>
 			<td>[[${ar1.treatmentStatus}]]</td>
+			
             <td>
               <!-- A link to edit an order type -->
               <!-- <a th:href="@{'/ordertype/' + ${orderType.orderTypeId}}" 
               	title="Edit this order type"
                 class="fa-regular fa-pen-to-square icon-dark"></a>
               &nbsp; -->
+              
+<!--               <button  class="btn btn-success btn-finished" th:data-appointment-id="${ar1.appointmentID}">Finished</button> -->
               
               <!-- A link to delete an order type -->
               <!-- <a th:href="@{'/ordertype/delete/' + ${orderType.orderTypeId}}" 

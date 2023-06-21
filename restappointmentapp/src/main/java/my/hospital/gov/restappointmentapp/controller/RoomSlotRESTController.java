@@ -3,6 +3,7 @@ package my.hospital.gov.restappointmentapp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,14 @@ public class RoomSlotRESTController {
 	public List<RoomSlot> getRoomSlots(){		
 		return roomSlotRepository.findAll();
 	}
+	
+	// Find available date
+	@GetMapping("/{date}")
+	public List<RoomSlot> findByDate(@PathVariable String date){
+		return roomSlotRepository.findByDate(date);
+	}
+	
+	
 	
 //	// Validate patient IC Number to proceed for appointment
 //	@GetMapping("/roomID/{roomID}")

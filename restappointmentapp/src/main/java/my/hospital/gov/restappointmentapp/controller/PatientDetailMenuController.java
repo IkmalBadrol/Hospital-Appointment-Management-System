@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.HttpEntity;
 
 import my.hospital.gov.restappointmentapp.model.PatientDetail;
@@ -121,7 +125,7 @@ public class PatientDetailMenuController {
 	
 	
 	@RequestMapping("/patientdetail/save")
-	public String updatePatientDetail(@ModelAttribute PatientDetail patientDetail)
+	public String updatePatientDetail(@ModelAttribute PatientDetail patientDetail) throws Exception
 	{
 		/*
 		 * This method will update or add new patient detail
@@ -129,24 +133,51 @@ public class PatientDetailMenuController {
 		
 		RestTemplate restTemplate=new RestTemplate();
 		
-		HttpEntity<PatientDetail> request=new HttpEntity<PatientDetail>(patientDetail);
+		HttpEntity<PatientDetail> request  = new HttpEntity<PatientDetail>(patientDetail);
 		
 		String patientDetailResponse="";
 		
-		if(patientDetail.getPatientID()>0 )
-		{
-			//This block will update patient detail
+		// This try and catch block check duplicate for patient's ic number 
+		try {
 			
-			//PUT method
-			restTemplate.put(defaultURI,request,PatientDetail.class);
+			if(!Strings.isBlank(patientDetail.getPatientICNumber()) )
+			{
+				//This block will update patient detail
+				
+				//PUT method
+				restTemplate.put(defaultURI,request,PatientDetail.class);
+				
+			}
+			else
+			{
+				//add new patient			
+				//POST request			
+				patientDetailResponse=restTemplate.postForObject(defaultURI, request, String.class);
+			}
 			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+			System.out.println("Error occurred: " + e.getMessage());
+			String errorMessage = "IC Number already registered";
+			
+			//model.addAttribute("errorMessage", errorMessage);
 		}
-		else
-		{
-			//add new patient			
-			//POST request			
-			patientDetailResponse=restTemplate.postForObject(defaultURI, request, String.class);
-		}
+//		if(!Strings.isBlank(patientDetail.getPatientICNumber()) )
+//		{
+//			//This block will update patient detail
+//			
+//			//PUT method
+//			restTemplate.put(defaultURI,request,PatientDetail.class);
+//			
+//		}
+//		else
+//		{
+//			//add new patient			
+//			//POST request			
+//			patientDetailResponse=restTemplate.postForObject(defaultURI, request, String.class);
+//		}
 	System.out.println(patientDetailResponse);
 		return "redirect:/patientdetail/list";
 		

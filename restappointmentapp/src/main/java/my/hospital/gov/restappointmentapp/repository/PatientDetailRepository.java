@@ -15,6 +15,7 @@ public interface PatientDetailRepository extends JpaRepository<PatientDetail, Lo
 	@Query(value="select * from Patient e where e.patientName like%:keyword%",nativeQuery=true)
 	List<PatientDetail> findByKeyword(@Param("keyword") String keyword);
 	
+	// This method validate existed patient IC number 
 	@Query(value = "select * from Patient where patientICNumber = :patientICNumber", nativeQuery = true)
 	public PatientDetail findPatientByIC(@Param("patientICNumber") String patientICNumber);
 	

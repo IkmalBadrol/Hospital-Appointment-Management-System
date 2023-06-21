@@ -42,11 +42,11 @@
             <th scope="col">Room </th>
             <th scope="col">Start Time </th>
              <th scope="col">End Time </th>
-
-            
- 
+             <th scope="col">Reschedule</th> 
           </tr>
         </thead>
+        
+        
         <tbody>
           <tr th:each="Apptlist : ${apptList}">
             <th scope="row">[[${Apptlist.appointmentID}]]</th>
@@ -59,10 +59,16 @@
             
            <td>
              
-               <a th:href="@{'/appointments/' + ${Apptlist.appointmentID}}" 
-              	title="Edit Or Reschedule Appointment"
+               <a th:href="@{'/appointments/' + ${Apptlist.patientID.patientICNumber}}" 
+               	title="Edit Or Reschedule Appointment"
                 class="fa-regular fa-pen-to-square icon-dark"></a>
-              &nbsp;
+              &nbsp; 
+              
+              </td> 
+<!--               
+ th:value="${Apptlist.getPatientID()}" -->
+<!--                th:text ="${Apptlist.getPatientICNumber()}" -->
+              
               
              
     <!--           <a th:href="@{'/patientdetail/delete/' + ${patientDetail.patientID}}" 
@@ -72,7 +78,7 @@
 --> 
 			
 
-            </td> 
+            
           </tr>
         </tbody>
       </table>
