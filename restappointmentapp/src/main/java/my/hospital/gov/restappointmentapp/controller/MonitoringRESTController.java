@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,4 +38,15 @@ public class MonitoringRESTController {
 		return appointment.findAll();
 	}
 	
+	@GetMapping("{appointmentID}")
+	public PatientAppointment getAppointment(@PathVariable long appointmentID){
+		PatientAppointment appointments = appointment.findById(appointmentID).get(); 
+		return appointments;
+	}
+	
+	@PutMapping
+	public PatientAppointment updateStatus(@RequestBody PatientAppointment appointments)
+	{
+		return appointment.save(appointments);
+	}
 }

@@ -11,7 +11,7 @@ import my.hospital.gov.restappointmentapp.model.PatientDetail;
 import my.hospital.gov.restappointmentapp.model.RoomSlot;
 
 @Repository
-public interface RoomSlotRepository extends JpaRepository<RoomSlot, Long> {
+public interface RoomSlotRepository extends JpaRepository<RoomSlot, String> {
 
 	// Check available room slot for selected appointment date
 	@Query(value = "SELECT rs.* FROM roomslot rs "  

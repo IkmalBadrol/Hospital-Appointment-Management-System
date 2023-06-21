@@ -1,11 +1,4 @@
-<nav class="navbar navbar-light bg-light">
-  <form class="form-inline">
-  </form>
-</nav>
-
-
-
-<table id="AppointmentRoom1">
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -14,7 +7,7 @@
   <title>REST Consumer</title>
 
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-  <link rel="stylesheet" type="text/css" th:href="@{/css/styleMonitor.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -23,10 +16,10 @@
 </head>
 
 <body>
-  <div th:replace="fragments/headerMonitoring :: headerMonitoring"></div>
+  <div th:replace="fragments/header :: header"></div>
 
   <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
-    <h2 class="text-center">List of Appointment</h2>
+    <h2 class="text-center">List of Order Types</h2>
 
     <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
       role="alert">
@@ -54,53 +47,24 @@
       </form>
     </div> -->
 
-    <div th:if="${AppointmentRoom1.size() > 0}">
+    <div th:if="${orderTypes.size() > 0}">
       <table class="table table-hover table-responsive-xl">
         <thead class="thead-light">
           <tr>
-            <th scope="col">Appointment ID</th>
-            <th scope="col">Date</th>
-            <th scope="col">Doctor</th>
-            <th scope="col">Patient</th>
-            <th scope="col">Start Time</th>
-            <th scope="col">Finished Time</th>
-            <th scope="col">Treatment Status</th>
-            <th scope="col">Action</th>
-         
+            <th scope="col">Id</th>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
             <!-- <th scope="col">Action</th>  -->
           </tr>
         </thead>
         <tbody>
-          <tr th:each="ar1 : ${AppointmentRoom1}" th:if="${ar1.roomSlotID.roomID.roomID == 'D-02-001' && #dates.format(ar1.date, 'yyyy-MM-dd') == #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
-            <th scope="row">[[${ar1.appointmentID}]]</th>
-            <td>[[${ar1.date}]]</td>
-            <td>[[${ar1.roomSlotID.roomID.doctorID.doctorName}]]</td>
-            <td>[[${ar1.patientID.patientName}]]</td>
-            <td>[[${ar1.roomSlotID.timeStart}]]</td>
-            <td>[[${ar1.roomSlotID.timeEnd}]]</td>
-            <td>[[${ar1.treatmentStatus}]]</td>
+          <tr th:each="orderType : ${orderTypes}">
+            <th scope="row">[[${orderType.orderTypeId}]]</th>
+            <td>[[${orderType.code}]]</td>
+            <td>[[${orderType.name}]]</td>
             <td>
-  				<button type="button" th:onclick="|window.location.href='@{/appointment/updateStatusRoom1/} + ${ar1.appointmentID}'|"
-       				   class="btn btn-success">
-   						 UPDATE STATUS
-  				</button>
-			</td>
-            <td>
-            	<!--
-				<button th:href="@{'/appointment/updateStatus/' + ${ar1.appointmentID}}"
-        			title="Edit this order type"
-        			class="btn btn-primary">Finished
-				</button>-->
-				 <!-- A link to edit an order type -->
-             		 <!--<a th:href="@{'/appointment/updateStatus/' + ${ar1.appointmentID}}" 
-              			title="Edit this order type"
-              		    class="fa-regular fa-pen-to-square icon-dark"></a>
-              			&nbsp;  -->
-			<td>
-			
-			<td>
               <!-- A link to edit an order type -->
-               <!--<a th:href="@{'/appointment/data/' + ${ar1.appointmentID}}" 
+              <!-- <a th:href="@{'/ordertype/' + ${orderType.orderTypeId}}" 
               	title="Edit this order type"
                 class="fa-regular fa-pen-to-square icon-dark"></a>
               &nbsp; -->
@@ -113,12 +77,11 @@
 
             </td> 
           </tr>
-          
         </tbody>
       </table>
     </div>
 
-    <div class="" th:unless="${AppointmentRoom1.size() > 0}">
+    <div class="" th:unless="${orderTypes.size() > 0}">
       <span>No record found!</span>
     </div>
   </div>
@@ -126,7 +89,7 @@
   <div class="modal fade text-center" id="confirmModal">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-headerMonitoring">
+        <div class="modal-header">
           <h5 class="modal-title">Delete Confirmation</h5>
           <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
@@ -147,7 +110,7 @@
 
   <div th:replace="fragments/footer :: footer"></div>
 
-<script type="text/javascript">
+  <script type="text/javascript">
     $(document).ready(function () {
       $(".btn-delete").on("click", function (e) {
         e.preventDefault();
@@ -162,11 +125,11 @@
       $("#btnClear").on("click", function (e) {
         e.preventDefault();
         $("#keyword").text("");
-        window.location = "[[@{/appointment/data}]]";
+        window.location = "[[@{/ordertype/list}]]";
       });
     });
   </script>
 
 </body>
-</body>
+
 </html>

@@ -35,7 +35,7 @@ public class MonitoringMenuController
     RoomSlot roomSlotID;
 	
     private RestTemplate restTemplate = new RestTemplate();
-    private static final String BASE_URL = "http://localhost:8080/appointmentapp/api/Monitor";
+    private String defaultURI = "http://localhost:8080/appointmentapp/api/Monitor";
 
 
     // get list of all appointment from both room1, room2, and room3 
@@ -130,55 +130,177 @@ public class MonitoringMenuController
 		return "appointmentRoom3";
 	}
 	
-	/*@GetMapping("/appointmentapp/appointment/Room1/{appointmentID}")
-	public String getOrderType (@PathVariable Integer appointmentID, Model model)
-	{
-	
-		//The URI for GET Doctors
-		String defaultURI = "http://localhost:8080/appointmentapp/appointment/Room1/";
-		String pageTitle = "New Appointment Status";
-		PatientAppointment appointment = new PatientAppointment();
-		
-		if(appointmentID>0)
+	// @ModelAttribute will bind the incoming request data to patientAppointment
+		// @RequestParam  retrieve appointmentID from request parameters
+		@GetMapping("/appointment/updateStatusRoom1/{appointmentID}")
+		public String getPatientID1 (@PathVariable Integer appointmentID, Model model)
 		{
-			String uri = defaultURI + "/"+appointmentID;
+			//Create a new RestTemplate 
+			// HTTP request
+			String Status="FINISHED";
+			String pageTitle = "New Appointment";
+			PatientAppointment appointment = new PatientAppointment();
+			
+			if (appointmentID>0)
+			{
+				String uri = defaultURI + "/" + appointmentID;
+				
+				RestTemplate restTemplate = new RestTemplate();
+				appointment = restTemplate.getForObject(uri, PatientAppointment.class);
+				
+				pageTitle = "Update Appointment Status";
+			}
+			
+			model.addAttribute("appointment",appointment);
+			model.addAttribute("pageTitle", pageTitle);
+			model.addAttribute("Status",Status);
+		
+			return "appointmentinfoRoom1";
+			
+		}
+		
+		@GetMapping("/appointment/updateStatusRoom2/{appointmentID}")
+		public String getPatientIDR2 (@PathVariable Integer appointmentID, Model model)
+		{
+			//Create a new RestTemplate 
+			// HTTP request
+			String Status="FINISHED";
+			String pageTitle = "New Appointment";
+			PatientAppointment appointment = new PatientAppointment();
+			
+			if (appointmentID>0)
+			{
+				String uri = defaultURI + "/" + appointmentID;
+				
+				RestTemplate restTemplate = new RestTemplate();
+				appointment = restTemplate.getForObject(uri, PatientAppointment.class);
+				
+				pageTitle = "Update Appointment Status";
+			}
+			
+			model.addAttribute("appointment",appointment);
+			model.addAttribute("pageTitle", pageTitle);
+			model.addAttribute("Status",Status);
+		
+			return "appointmentinfoRoom2";
+			
+		}
+		
+		@GetMapping("/appointment/updateStatusRoom3/{appointmentID}")
+		public String getPatientIDR3 (@PathVariable Integer appointmentID, Model model)
+		{
+			//Create a new RestTemplate 
+			// HTTP request
+			String Status="FINISHED";
+			String pageTitle = "New Appointment";
+			PatientAppointment appointment = new PatientAppointment();
+			
+			if (appointmentID>0)
+			{
+				String uri = defaultURI + "/" + appointmentID;
+				
+				RestTemplate restTemplate = new RestTemplate();
+				appointment = restTemplate.getForObject(uri, PatientAppointment.class);
+				
+				pageTitle = "Update Appointment Status";
+			}
+			
+			model.addAttribute("appointment",appointment);
+			model.addAttribute("pageTitle", pageTitle);
+			model.addAttribute("Status",Status);
+		
+			return "appointmentinfoRoom3";
+			
+		}
+		
+		@RequestMapping("/appointment/saveStatusRoom1")
+		public String updateAppointmentStatus1 (@ModelAttribute PatientAppointment appointment)
+		{
+			//Create a new RestTemplate
 			RestTemplate restTemplate = new RestTemplate();
-			appointment = restTemplate.getForObject(uri, PatientAppointment.class);
-			pageTitle = "Edit Order Type";
+			
+			//Create request body
+			HttpEntity<PatientAppointment> request = new HttpEntity<PatientAppointment>(appointment);
+			
+			String appointmentResponse = "";
+			
+			if (appointment.getAppointmentID() > 0)
+			{
+				//This block update a new order type and
+				//Send request as PUT
+				restTemplate.put(defaultURI, request, PatientAppointment.class);
+				
+			}else {
+				//This block add a new order type
+				//Send request as POST
+				appointmentResponse = restTemplate.postForObject(defaultURI, request, String.class);
+			}
+			
+			System.out.println(appointmentResponse);
+			
+			//Redirect request to display a list of order type
+			return "redirect:/appointment/room1";
+			
 		}
-		
-		model.addAttribute("appointment",appointment);
-		model.addAttribute("pageTitle",pageTitle);
-		
-		return"ordertypeinfo";
-		
-	}*/
 	
-	/*@RequestMapping("/appointment/save/room1")
-	public String updateAppointmentRoom1(@ModelAttribute PatientAppointment appointment)
-	{
-		String defaultURI="http://localhost:8080/appointmentapp/api/Monitor";
-		// Create a new RestTemplate
-		RestTemplate restTemplate = new RestTemplate();
-		
-		HttpEntity<PatientAppointment> request = new HttpEntity<>(appointment);
-		
-		String updateRoom1 ="";
-		
-		if(appointment.getAppointmentID()>0)
+		@RequestMapping("/appointment/saveStatusRoom2")
+		public String updateAppointmentStatus2 (@ModelAttribute PatientAppointment appointment)
 		{
-			//send request as put
-			restTemplate.put(defaultURI, request, PatientAppointment.class);
+			//Create a new RestTemplate
+			RestTemplate restTemplate = new RestTemplate();
+			
+			//Create request body
+			HttpEntity<PatientAppointment> request = new HttpEntity<PatientAppointment>(appointment);
+			
+			String appointmentResponse = "";
+			
+			if (appointment.getAppointmentID() > 0)
+			{
+				//This block update a new order type and
+				//Send request as PUT
+				restTemplate.put(defaultURI, request, PatientAppointment.class);
+				
+			}else {
+				//This block add a new order type
+				//Send request as POST
+				appointmentResponse = restTemplate.postForObject(defaultURI, request, String.class);
+			}
+			
+			System.out.println(appointmentResponse);
+			
+			//Redirect request to display a list of order type
+			return "redirect:/appointment/room2";
+			
 		}
-		else
+	
+	
+		@RequestMapping("/appointment/saveStatusRoom3")
+		public String updateAppointmentStatus3 (@ModelAttribute PatientAppointment appointment)
 		{
-			// send request to POST
-			updateRoom1 = restTemplate.postForObject(defaultURI, request, String.class);
+			//Create a new RestTemplate
+			RestTemplate restTemplate = new RestTemplate();
+			
+			//Create request body
+			HttpEntity<PatientAppointment> request = new HttpEntity<PatientAppointment>(appointment);
+			
+			String appointmentResponse = "";
+			
+			if (appointment.getAppointmentID() > 0)
+			{
+				//This block update a new order type and
+				//Send request as PUT
+				restTemplate.put(defaultURI, request, PatientAppointment.class);
+				
+			}else {
+				//This block add a new order type
+				//Send request as POST
+				appointmentResponse = restTemplate.postForObject(defaultURI, request, String.class);
+			}
+			
+			System.out.println(appointmentResponse);
+			
+			//Redirect request to display a list of order type
+			return "redirect:/appointment/room3";
+			
 		}
-		
-		
-		return "redirect:/appointment/room1";
-	}*/
-	
-	
 }

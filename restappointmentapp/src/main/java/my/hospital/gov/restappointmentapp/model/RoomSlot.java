@@ -26,6 +26,7 @@ public class RoomSlot {
 	public String getRoomSlotID() {
 		return roomSlotID;
 	}
+	
 	public void setRoomSlotID(String roomSlotID) {
 		this.roomSlotID = roomSlotID;
 	}

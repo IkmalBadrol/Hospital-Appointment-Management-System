@@ -27,52 +27,24 @@ public class PatientAppointmentRESTController {
 
 	@Autowired
 	private PatientAppointmentRepository patientAppointmentRepository;
-
+	@Autowired
+	private DoctorRepository doctorRepository;
 	
 	@GetMapping
 	public List<PatientAppointment> getPatientAppointments(){
 		return patientAppointmentRepository.findAll();
 	}
 	
-//	@GetMapping("/{appointmentID}")
-//	public PatientAppointment getPatientAppointment(@PathVariable long appointmentID) {
-//		
-//		PatientAppointment patientAppointment = patientAppointmentRepository.findById(appointmentID).get();
-//		return patientAppointment;
-//	}
-	
-	
-	// This annotation maps HTTP POST requests to this method.
+
 	@PostMapping
-	public PatientAppointment addPatientAppointment(@RequestBody PatientAppointment patientAppointment) { 
+	public PatientAppointment addPatientAppointment(@RequestBody PatientAppointment patientAppointment) {
 		return patientAppointmentRepository.save(patientAppointment);
-	}
-	
+	}	
 	
 	@PutMapping
 	public PatientAppointment updatePatientAppointment(@RequestBody PatientAppointment patientAppointment) {
 	    return patientAppointmentRepository.save(patientAppointment);
 	}
 	
-	
-	@PutMapping("/Status")
-	public PatientAppointment updateAppointmentStatus(@RequestBody PatientAppointment patientAppointment) {
-	    return patientAppointmentRepository.save(patientAppointment);
-	}
-	
-	
 
-//	@DeleteMapping("{appointmentID}")
-//	public void deletePatientAppointment(@RequestBody PatientAppointment patientAppointment) {
-//	    patientAppointmentRepository.delete(patientAppointment);
-//	}
-	
-//	@DeleteMapping("{appointmentID}")
-//	public ResponseEntity<HttpStatus> deletePatientAppointment(@PathVariable long appointmentID){
-//		
-//		patientAppointmentRepository.deleteById(appointmentID);
-//		
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
-	
 }

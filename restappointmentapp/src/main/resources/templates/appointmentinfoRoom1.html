@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+  <title>REST Consumer</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <h2 class="text-center">[[${pageTitle}]]</h2>
+
+    <div class="my-3">
+      <form th:action="@{/appointment/saveStatusRoom1}" method="post" enctype="multipart/form-data" th:object="${appointment}"
+        style="max-width: 550px; margin: 0 auto" id="confirmationForm" onsubmit="return confirm('Are you sure want to change the treatment status?')">
+
+        <input type="hidden" th:field="*{appointmentID}" />
+       
+       <!-- <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="name">Doctor ID</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{appointment.doctorID.doctorName.doctorName}" minlength="2" maxlength="256" class="form-control"
+                id="doctorID" />
+            </div> -->
+         
+         <!-- 
+         <div>
+               <div class="form-group row">
+                   <label class="col-sm-3 col-form-label" for="name">Room Slot</label>
+                   <div class="col-sm-9">
+                   <input type="text" th:field="*{roomSlotID}" minlength="2" maxlength="256" class="form-control"
+                    id="roomSlotID" />
+               </div>
+          </div> -->
+          <div>
+               <div class="form-group row">
+   			       <label class="col-sm-3 col-form-label" for="name">Appointment Date</label>
+                   <div class="col-sm-9">
+                   <input type="text" th:field="*{date}" minlength="2" maxlength="256" class="form-control" id="date" readonly />
+               </div>
+          </div>
+          <input type="hidden" th:field="*{patientID}" />
+          <!-- 
+          <div>
+               <div class="form-group row">
+   			       <label class="col-sm-3 col-form-label" for="name">Patient Name</label>
+                   <div class="col-sm-9">
+                   <input type="text" th:field="*{patientID.patientName}" minlength="2" maxlength="256" class="form-control" id="patientName" readonly />
+               </div>
+          </div> -->
+          
+          <div>
+               <div class="form-group row">
+   			       <label class="col-sm-3 col-form-label" for="name">Room Slot</label>
+                   <div class="col-sm-9">
+                   <input type="text" th:field="*{roomSlotID}" minlength="2" maxlength="256" class="form-control" id="roomSlotID" readonly />
+               </div>
+          </div>
+          <!--  <input type="hidden" th:field="*{roomSlotID.roomID}" /> -->
+         
+          <div>
+               <div class="form-group row">
+  			       <label class="col-sm-3 col-form-label" for="name">Treatment Status</label>
+                   <div class="col-sm-9">
+                   <select th:field="*{treatmentStatus}" class="form-control" id="statusTreatment">
+                     <option value="finished">FINISHED</option>
+                     <option value="unattended">UNATTEND</option>
+                     <option value="unfinished">UNFINISHED</option>
+                   </select>
+               </div>
+          </div>
+               
+       
+
+          <div class="text-center">
+            <input type="submit" value="Save" class="btn btn-primary btn-sm mr-2" />
+            <input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary btn-sm" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div th:replace="fragments/footer :: footer"></div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#btnCancel").on("click", function () {
+        window.location = "[[@{/appointment/data}]]";
+      });
+    });
+  </script>
+
+</body>
+
+</html>
