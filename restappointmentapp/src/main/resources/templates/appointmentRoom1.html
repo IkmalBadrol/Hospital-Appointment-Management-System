@@ -26,7 +26,7 @@
   <div th:replace="fragments/headerMonitoring :: headerMonitoring"></div>
 
   <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
-    <h2 class="text-center">List of Appointment</h2>
+    <h2 class="text-center">List of Patient in Room 1</h2>
 
     <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
       role="alert">
@@ -35,24 +35,6 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-
-    <!-- <div class="my-3">
-      <form th:action="@{/tutorials}">
-        <div class="row d-flex">
-          <div class="col-md-6 mt-2">
-            <div class="search">
-              <i class="fa fa-search"></i>
-              <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
-                placeholder="Enter keyword">
-              <button type="submit" class="btn btn-secondary">Search</button>
-            </div>
-          </div>
-          <div class="col-md-6 mt-2">
-            <button id="btnClear" class="btn btn-info">Clear</button>
-          </div>
-        </div>
-      </form>
-    </div> -->
 
     <div th:if="${AppointmentRoom1.size() > 0}">
       <table class="table table-hover table-responsive-xl">
@@ -85,33 +67,6 @@
    						 UPDATE STATUS
   				</button>
 			</td>
-            <td>
-            	<!--
-				<button th:href="@{'/appointment/updateStatus/' + ${ar1.appointmentID}}"
-        			title="Edit this order type"
-        			class="btn btn-primary">Finished
-				</button>-->
-				 <!-- A link to edit an order type -->
-             		 <!--<a th:href="@{'/appointment/updateStatus/' + ${ar1.appointmentID}}" 
-              			title="Edit this order type"
-              		    class="fa-regular fa-pen-to-square icon-dark"></a>
-              			&nbsp;  -->
-			<td>
-			
-			<td>
-              <!-- A link to edit an order type -->
-               <!--<a th:href="@{'/appointment/data/' + ${ar1.appointmentID}}" 
-              	title="Edit this order type"
-                class="fa-regular fa-pen-to-square icon-dark"></a>
-              &nbsp; -->
-              
-              <!-- A link to delete an order type -->
-              <!-- <a th:href="@{'/ordertype/delete/' + ${orderType.orderTypeId}}" 
-              th:orderTypeCode="${orderType.code}" id="btnDelete"
-                title="Delete this order type" 
-                class="fa-regular fa-trash-can icon-dark btn-delete"></a> -->
-
-            </td> 
           </tr>
           
         </tbody>

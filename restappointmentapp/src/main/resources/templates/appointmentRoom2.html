@@ -27,7 +27,7 @@
   <div th:replace="fragments/headerMonitoring :: headerMonitoring"></div>
 
   <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
-    <h2 class="text-center">List of Appointment</h2>
+    <h2 class="text-center">List of Patient in Room 2</h2>
 
     <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
       role="alert">
@@ -37,24 +37,7 @@
       </button>
     </div>
 
-    <!-- <div class="my-3">
-      <form th:action="@{/tutorials}">
-        <div class="row d-flex">
-          <div class="col-md-6 mt-2">
-            <div class="search">
-              <i class="fa fa-search"></i>
-              <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
-                placeholder="Enter keyword">
-              <button type="submit" class="btn btn-secondary">Search</button>
-            </div>
-          </div>
-          <div class="col-md-6 mt-2">
-            <button id="btnClear" class="btn btn-info">Clear</button>
-          </div>
-        </div>
-      </form>
-    </div> -->
-
+   
     <div th:if="${AppointmentRoom2.size() > 0}">
       <table class="table table-hover table-responsive-xl">
         <thead class="thead-light">
@@ -85,19 +68,7 @@
        				   class="btn btn-success">
    						 UPDATE STATUS
   				</button>
-			</td>
-              <!-- A link to edit an order type -->
-              <!-- <a th:href="@{'/ordertype/' + ${orderType.orderTypeId}}" 
-              	title="Edit this order type"
-                class="fa-regular fa-pen-to-square icon-dark"></a>
-              &nbsp; -->
-              
-              <!-- A link to delete an order type -->
-              <!-- <a th:href="@{'/ordertype/delete/' + ${orderType.orderTypeId}}" 
-              th:orderTypeCode="${orderType.code}" id="btnDelete"
-                title="Delete this order type" 
-                class="fa-regular fa-trash-can icon-dark btn-delete"></a> -->
-            </td> 
+			
             
           </tr>
         </tbody>
@@ -133,42 +104,25 @@
 
   <div th:replace="fragments/footer :: footer"></div>
 
-    <script type="text/javascript">
-  $(document).ready(function () {
-    // Event handler for the "Finished" button
-    $(".btn-finished").on("click", function () {
-      var appointmentId = $(this).attr("th:data-appointment-id");
-      // Perform the necessary actions when the "Finished" button is clicked
-      // E.g., make an AJAX request to update the appointment status to "Finished"
-      // You can add your custom logic here
-      console.log("Finished button clicked for appointment ID: " + appointmentId);
+<script type="text/javascript">
+    $(document).ready(function () {
+      $(".btn-delete").on("click", function (e) {
+        e.preventDefault();
+        link = $(this);
+
+        orderTypeCode = link.attr("orderTypeCode");
+        $("#yesBtn").attr("href", link.attr("href"));
+        $("#confirmText").html("Do you want to delete the  \<strong\>" + orderTypeCode + "\<\/strong\>?");
+        $("#confirmModal").modal();
+      });
+
+      $("#btnClear").on("click", function (e) {
+        e.preventDefault();
+        $("#keyword").text("");
+        window.location = "[[@{/ordertype/list}]]";
+      });
     });
-  });
-  
-//Function to update the appointment status
-  function updateAppointmentStatus(appointmentId, newStatus) {
-    // Make an AJAX request to update the appointment status
-    $.ajax({
-      url: "/update-appointment-status",
-      method: "POST",
-      data: {
-        appointmentId: appointmentId,
-        newStatus: newStatus
-      },
-      success: function (response) {
-        console.log("Appointment status updated successfully.");
-        // Update the status column in the table with the new status
-        $("#" + appointmentId + " .status").text(newStatus);
-      },
-      error: function (xhr, status, error) {
-        console.error("Error updating appointment status: " + error);
-        // Handle any errors that occur during the update process
-      }
-    });
-  }
 </script>
-
-
 </body>
 </body>
 </html>

@@ -21,6 +21,7 @@ import my.hospital.gov.restappointmentapp.model.PatientAppointment;
 import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 import my.hospital.gov.restappointmentapp.repository.PatientAppointmentRepository;
 
+
 @RestController
 @RequestMapping("/api/appointments")
 public class PatientAppointmentRESTController {

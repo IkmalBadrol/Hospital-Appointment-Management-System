@@ -1,5 +1,6 @@
 package my.hospital.gov.restappointmentapp.controller;
 
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collector;
@@ -97,26 +98,12 @@ public class PatientAppointmentScheduleController {
 		
 	}
 	
-//	@GetMapping
-//	public String getPatientName(@ModelAttribute PatientDetail patientDetail, @RequestParam long patientName) {
-//		
-//		if(patientDetail.equals(patientName)) {
-//			String uri = defaultURI + "/" +patientName;
-//			
-//			RestTemplate restTemplate = new RestTemplate();
-//			patientDetail = restTemplate.getForObject(uri, PatientDetail.class);
-//			
-//		}
-//	
-//		model.addAtt
-//	}
-	
-
 
 	// Validate patient IC Number
 	@GetMapping("/appointments/{patientIC}")
 	public String getAppointment(@PathVariable String patientIC,  Model model, 
-			@RequestParam(name = "patientIC1", required =false) String patientIC1) {
+			@RequestParam(name = "patientIC1", required =false) String patientIC1,
+			@RequestParam(name = "date", required =false)String date) {
 		
 		String pageTitle="Appointment";
 		
@@ -128,16 +115,21 @@ public class PatientAppointmentScheduleController {
 			//String uri = defaultURI + "/" +patientIC;
 			
 			RestTemplate restPatient = new RestTemplate();
-			currentPatientDetail = restPatient.getForObject("http://localhost:8080/appointmentapp/api/patientdetails/patientIC/" + patientIC1, PatientDetail.class);	
+			currentPatientDetail = restPatient.getForObject("http://localhost:8080/appointmentapp/api/patientdetails/patientIC/" 
+			+ patientIC1, PatientDetail.class);	
 			patientAppointment.setPatientID(currentPatientDetail);			
 		}
 		
-//		RestTemplate restTemplate = new RestTemplate();
-//		ResponseEntity<PatientAppointment[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/appointmentapp/api/appointments", PatientAppointment[].class);
-//		
-//		PatientAppointment patientAppointments[] = responseEntity.getBody();
-//		
-//		List<PatientAppointment> AppointmentList = Arrays.asList(patientAppointments);
+			String uri ="http://localhost:8080/appointmentapp/api/roomslots";
+		
+		
+		// Check if date in null 
+		// and parse date into patientAppointemnt Object
+			if(!Strings.isBlank(date)) {
+				uri += "/"+ date;
+				patientAppointment.setDate(Date.valueOf(date));
+			}
+		
 		
 	
 		RestTemplate restTemplateRoomSlot = new RestTemplate();
@@ -152,23 +144,11 @@ public class PatientAppointmentScheduleController {
 			System.out.println("test data" + roomslot.getRoomID().getDoctorID());
 		}
 			
-		
-//		RestTemplate restTemplateDoctor = new RestTemplate();
-//		ResponseEntity<Doctor[]> responseDoctor = restTemplateDoctor.getForEntity("http://localhost:8080/appointmentapp/api/doctors", Doctor[].class);
-//		
-//		Doctor doctorArray[] = responseDoctor.getBody();
-//		
-//		List<Doctor>doctorList = Arrays.asList(doctorArray);
-		
-		
-	    
 		model.addAttribute("patientAppointment", patientAppointment);
 		model.addAttribute("Appointment",pageTitle);
 		model.addAttribute("patientID", currentPatientDetail);
 		model.addAttribute("slotList", slotList);
-		//model.addAttribute("AppointmentList", AppointmentList);
-		//model.addAttribute("roomList", roomList);
-		//model.addAttribute("doctorList", doctorList);
+
 		
 		return "appointment";
 	}
@@ -195,71 +175,5 @@ public class PatientAppointmentScheduleController {
 		
 		return "appointmentlist";
 	}
-
-	
-
-	
-//	@GetMapping("/appointments/doctor")
-//	public String getDoctorAppointment(Model model) {
-//		//String uri = "http://localhost:8080/appointmentapp/api/appointments";
-//		
-//		//PatientAppointment patientAppointment = new PatientAppointment();
-//		
-//		RestTemplate restTemplate = new RestTemplate();
-//		ResponseEntity<PatientAppointment[]> responseEntity = restTemplate.getForEntity("http://localhost:8080/appointmentapp/api/appointments", PatientAppointment[].class);
-//		
-//		PatientAppointment patientAppointments[] = responseEntity.getBody();
-//		
-//		List<PatientAppointment> AppointmentList = Arrays.asList(patientAppointments);
-//		
-//		for( PatientAppointment appointment : AppointmentList) {
-//			
-//			System.out.println("test data" + appointment.getRoomSlotID().getRoomID().getDoctorID().getDoctorName());
-//		}
-//	
-//		
-//		
-//		RestTemplate restTemplateRoomSlot = new RestTemplate();
-//		ResponseEntity<RoomSlot[]> responseRoomSlot = restTemplateRoomSlot.getForEntity("http://localhost:8080/appointmentapp/api/roomslots", RoomSlot[].class);
-//		
-//		RoomSlot roomSlotArray[] = responseRoomSlot.getBody();
-//		
-//		List<RoomSlot>slotList = Arrays.asList(roomSlotArray);
-//		
-//		
-//		
-//		RestTemplate restTemplateRoom = new RestTemplate();
-//		ResponseEntity<Room[]> responseRoom = restTemplateRoom.getForEntity("http://localhost:8080/appointmentapp/api/rooms", Room[].class);
-//		
-//		Room roomArray[] = responseRoom.getBody();
-//		
-//		List<Room>roomList = Arrays.asList(roomArray);
-//		
-//for( PatientAppointment appointment : AppointmentList) {
-//			
-//			System.out.println("test data" + appointment.getRoomSlotID().getRoomID().getDoctorID().getDoctorName());
-//		}
-//
-//		
-//		
-//		
-//		RestTemplate restTemplateDoctor = new RestTemplate();
-//		ResponseEntity<Doctor[]> responseDoctor = restTemplateDoctor.getForEntity("http://localhost:8080/appointmentapp/api/doctors", Doctor[].class);
-//		
-//		Doctor doctorArray[] = responseDoctor.getBody();
-//		
-//		List<Doctor>doctorList = Arrays.asList(doctorArray);
-//		
-//		//System.out.println(responseEntity.getAppointmentID());
-//		
-//		model.addAttribute("AppointmentList", AppointmentList);
-//		model.addAttribute("slotList", slotList);
-//		model.addAttribute("roomList", roomList);
-//		model.addAttribute("doctorList", doctorList);
-//				
-//		return "appointment";
-//	}
-	
-	
 	
 }

@@ -37,24 +37,6 @@
       </button>
     </div>
 
-    <!-- <div class="my-3">
-      <form th:action="@{/tutorials}">
-        <div class="row d-flex">
-          <div class="col-md-6 mt-2">
-            <div class="search">
-              <i class="fa fa-search"></i>
-              <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
-                placeholder="Enter keyword">
-              <button type="submit" class="btn btn-secondary">Search</button>
-            </div>
-          </div>
-          <div class="col-md-6 mt-2">
-            <button id="btnClear" class="btn btn-info">Clear</button>
-          </div>
-        </div>
-      </form>
-    </div> -->
-
     <div th:if="${PatientAppointments.size() > 0}">
       <table class="table table-hover table-responsive-xl">
         <thead class="thead-light">
@@ -78,20 +60,7 @@
             <td>[[${ar.roomSlotID.timeStart}]]</td>
             <td>[[${ar.roomSlotID.timeEnd}]]</td>
             <td>[[${ar.roomSlotID.roomID.roomName}]]</td>
-            <td>
-              <!-- A link to edit an order type -->
-              <!-- <a th:href="@{'/ordertype/' + ${orderType.orderTypeId}}" 
-              	title="Edit this order type"
-                class="fa-regular fa-pen-to-square icon-dark"></a>
-              &nbsp; -->
-              
-              <!-- A link to delete an order type -->
-              <!-- <a th:href="@{'/ordertype/delete/' + ${orderType.orderTypeId}}" 
-              th:orderTypeCode="${orderType.code}" id="btnDelete"
-                title="Delete this order type" 
-                class="fa-regular fa-trash-can icon-dark btn-delete"></a> -->
-
-            </td> 
+           
           </tr>
         </tbody>
       </table>
