@@ -31,13 +31,4 @@ public class RoomSlotRESTController {
 		return roomSlotRepository.findByDate(date);
 	}
 	
-	
-	
-//	// Validate patient IC Number to proceed for appointment
-//	@GetMapping("/roomID/{roomID}")
-//	public RoomSlot findByRoomID(@PathVariable String roomID) {
-//		
-//		return roomSlotRepository.findByRoomID(roomID);
-//	}
-	
 }

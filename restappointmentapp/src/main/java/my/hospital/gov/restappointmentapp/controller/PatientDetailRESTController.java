@@ -63,13 +63,6 @@ public class PatientDetailRESTController {
 	}
 	
 	
-	//get patient by keyword
-	public List<PatientDetail>findByKeyword(String keyword)
-	{
-		return patientDetailRepository.findByKeyword(keyword);
-		
-	}
-	
 	// Validate patient IC Number to proceed for appointment
 	@GetMapping("/patientIC/{patientICNumber}")
 	public PatientDetail findPatientByIC(@PathVariable String patientICNumber) {
@@ -78,13 +71,6 @@ public class PatientDetailRESTController {
 	}
 	
 
- /*
-	@GetMapping("/patientID/{patientID}")
-	public PatientDetail findPatientById(@PathVariable Long patientID) {
-		
-		return patientDetailRepository.findById(patientID).get();
-	}
-	*/
 	
 	
 }

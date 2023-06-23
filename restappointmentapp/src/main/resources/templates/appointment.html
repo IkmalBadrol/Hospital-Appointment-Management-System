@@ -68,9 +68,10 @@
             </div>
           </div>
         
-        
- <div class="form-group row">
-			<label class ="col-sm-3 col-form-label" for="RoomSlot"> Details</label>
+
+ <div  class="form-group row">
+			<label class ="col-sm-3 col-form-label" for="RoomSlot"> Room </label>
+
 			<div class="col-sm-9">
 				<select name="roomSlotID" id="roomSlotIDt" th:field="*{roomSlotID.roomSlotID}" required class="form-control"> 
 					<option th:each="docAppointment : ${slotList}"
@@ -83,44 +84,6 @@
 		 </div> 
 	 </div>
    
-   
-<!--  		<div class="form-group row">
-			<label class ="col-sm-3 col-form-label" for="DoctorName"> Doctor's Name</label>
-			<div class="col-sm-9">
-				<select name="doctor" id="doctor" required> 
-					<option th:each="docAppointment : ${roomList}"
-							th:value="${docAppointment.getRoomID()}"
-							th:text ="${docAppointment.getDoctorID().getDoctorName()} + '-' +${docAppointment.getRoomName()}" />	
-				 </select> 
-		 </div> 
-	 </div>
-			 -->
-			 
-			 
-        
-  <!--      <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="appointmentDate">Date</label>
-            <div class="col-sm-9">
-              <input type="date" th:field="*{date}" class="form-control" id="date">
-            </div>
-          </div>
-          
-          --> 
-          
-             
-        
-
-        
-        
-    <!--     <label class="col-sm-3 col-form-label" for="patientID">IC Number</label>
-            <div class="col-sm-9">
-              <div class="col-sm-9">
-              <input type="date" th:field="*{date}" class="form-control" id="date"  />
-            </div>
-           
-          </div>
-        
-       --> 
        
 		<script>
 			 // Validate current and above date can be choose only
@@ -146,40 +109,7 @@
 		</script>
 
 
- <!--                   
-          
-                    <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="patientPhoneNumber">Phone Number</label>
-            <div class="col-sm-9">
-              <input type="text" th:field="*{patientPhoneNumber}" minlength="8" maxlength="11" class="form-control"
-                id="patientPhoneNumber" />
-            </div>
-          </div>
-          
-                    <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="patientAge">Age</label>
-            <div class="col-sm-9">
-              <input type="text" th:field="*{patientAge}" minlength="1" maxlength="2" class="form-control"
-                id="patientAge" />
-            </div>
-          </div>
-                   <div class="form-group row">
-  <label class="col-sm-3 col-form-label" for="patientGender">Gender</label>
-  <div class="col-sm-9">
-    <select th:field="*{patientGender}" class="form-control" id="patientGender">
-      <option value="L">Male</option>
-      <option value="P">Female</option>
-    </select>
-  </div>
-</div>
-                     <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="patientAddress">Address</label>
-            <div class="col-sm-9">
-              <input type="text" th:field="*{patientAddress}" minlength="1" maxlength="256" class="form-control"
-                id="patientAddress" />
-            </div>
-          </div>
--->
+
 
             <div class="text-center">
             <input type="submit" value="Save" class="btn btn-primary btn-sm mr-2" />

@@ -8,8 +8,9 @@
 
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
@@ -59,35 +60,18 @@
             
            <td>
              
-               <a th:href="@{'/appointments/' + ${Apptlist.patientID.patientICNumber}}" 
+               <a th:href="@{'/appointments/' + ${Apptlist.appointmentID}}" 
                	title="Edit Or Reschedule Appointment"
                 class="fa-regular fa-pen-to-square icon-dark"></a>
               &nbsp; 
               
               </td> 
-<!--               
- th:value="${Apptlist.getPatientID()}" -->
-<!--                th:text ="${Apptlist.getPatientICNumber()}" -->
-              
-              
-             
-    <!--           <a th:href="@{'/patientdetail/delete/' + ${patientDetail.patientID}}" 
-              th:patientID="${patientDetail.patientID}" id="btnDelete"
-                title="Delete this order type" 
-                class="fa-regular fa-trash-can icon-dark btn-delete"></a> 
---> 
-			
-
-            
           </tr>
         </tbody>
       </table>
     </div>
 
-<!--    <div class="" th:unless="${patientDetails.size() > 0}">
-      <span>No record found!</span>
-    </div>
-     --> 
+
   </div>
 
 <!--    <div class="modal fade text-center" id="confirmModal">

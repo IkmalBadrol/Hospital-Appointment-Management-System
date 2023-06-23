@@ -120,7 +120,7 @@ public class PatientDetailMenuController {
 		model.addAttribute("pageTitle",pageTitle);
 		
 		return "patientdetailinfo";
-	
+		
 	}
 	
 	
@@ -158,26 +158,8 @@ public class PatientDetailMenuController {
 		} catch (Exception e) {
 			
 			e.printStackTrace();
-			
-			System.out.println("Error occurred: " + e.getMessage());
-			String errorMessage = "IC Number already registered";
-			
-			//model.addAttribute("errorMessage", errorMessage);
 		}
-//		if(!Strings.isBlank(patientDetail.getPatientICNumber()) )
-//		{
-//			//This block will update patient detail
-//			
-//			//PUT method
-//			restTemplate.put(defaultURI,request,PatientDetail.class);
-//			
-//		}
-//		else
-//		{
-//			//add new patient			
-//			//POST request			
-//			patientDetailResponse=restTemplate.postForObject(defaultURI, request, String.class);
-//		}
+
 	System.out.println(patientDetailResponse);
 		return "redirect:/patientdetail/list";
 		
@@ -203,18 +185,18 @@ public class PatientDetailMenuController {
 	}
 	
 	
-	@GetMapping("/patientdetail/search")
-	public String searchPatientDetails(@RequestParam("keyword") String keyword, Model model) {
-	    String uriPatient = "http://localhost:8080/appointmentapp/api/patientdetails/search?keyword=" + keyword;
-
-	    RestTemplate restTemplate = new RestTemplate();
-	    ResponseEntity<PatientDetail[]> response = restTemplate.getForEntity(uriPatient, PatientDetail[].class);
-	    PatientDetail[] patientDetails = response.getBody();
-	    List<PatientDetail> patientDetailList = Arrays.asList(patientDetails);
-	    model.addAttribute("patientDetails", patientDetailList);
-	    model.addAttribute("searchKeyword", keyword);
-
-	    return "patientdetails";
-	}
+//	@GetMapping("/patientdetail/search/{patientICNumber}")
+//	public String searchPatientDetails(@PathVariable String patientIC PatientDetail patientDetail, Model model) {
+//	    String uriPatient = "http://localhost:8080/appointmentapp/api/patientdetails";
+//
+//	    RestTemplate restTemplate = new RestTemplate();
+//	    ResponseEntity<PatientDetail[]> response = restTemplate.getForEntity(uriPatient, PatientDetail[].class);
+//	    PatientDetail[] patientDetails = response.getBody();
+//	    List<PatientDetail> patientDetailList = Arrays.asList(patientDetails);
+//	    model.addAttribute("patientDetailList", patientDetailList);
+//	   // model.addAttribute("patientDetail", patientDetail);
+//	    
+//	    return "patientdetails";
+//	}
 	
 }

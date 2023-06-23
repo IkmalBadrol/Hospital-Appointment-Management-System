@@ -2,6 +2,7 @@ package my.hospital.gov.restappointmentapp.controller;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,14 @@ public class PatientAppointmentRESTController {
 	}
 	
 
+//	@GetMapping("/{appointmentID}")
+//	public Optional<PatientAppointment> getPatientAppointment(@PathVariable long appointmentID) {
+//		
+//		return patientAppointmentRepository.findById(appointmentID);
+//	}
+	
+	
+	// This annotation maps HTTP POST requests to this method.
 	@PostMapping
 	public PatientAppointment addPatientAppointment(@RequestBody PatientAppointment patientAppointment) {
 		return patientAppointmentRepository.save(patientAppointment);
@@ -44,6 +53,12 @@ public class PatientAppointmentRESTController {
 	
 	@PutMapping
 	public PatientAppointment updatePatientAppointment(@RequestBody PatientAppointment patientAppointment) {
+	    return patientAppointmentRepository.save(patientAppointment);
+	}
+	
+
+	@PutMapping("/Status")
+	public PatientAppointment updateAppointmentStatus(@RequestBody PatientAppointment patientAppointment) {
 	    return patientAppointmentRepository.save(patientAppointment);
 	}
 	
