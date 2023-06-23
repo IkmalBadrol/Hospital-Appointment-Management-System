@@ -106,7 +106,6 @@ public class PatientAppointmentScheduleController {
 
 	public String getAppointment(@PathVariable String patientIC, Model model, 
 			@RequestParam(name = "patientIC1", required =false) String patientIC1, 
-
 			@RequestParam(name = "date", required =false)String date) {
 		
 		String pageTitle="Appointment";
@@ -135,9 +134,12 @@ public class PatientAppointmentScheduleController {
 				patientAppointment.setDate(Date.valueOf(date));
 			}
 
+			
+			
 		RestTemplate restTemplateRoomSlot = new RestTemplate();
-		ResponseEntity<RoomSlot[]> responseRoomSlot = restTemplateRoomSlot.getForEntity("http://localhost:8080/appointmentapp/api/roomslots", RoomSlot[].class);
+		//ResponseEntity<RoomSlot[]> responseRoomSlot = restTemplateRoomSlot.getForEntity("http://localhost:8080/appointmentapp/api/roomslots", RoomSlot[].class);
 		
+		ResponseEntity<RoomSlot[]> responseRoomSlot = restTemplateRoomSlot.getForEntity(uri, RoomSlot[].class);
 		RoomSlot roomSlotArray[] = responseRoomSlot.getBody();
 		
 		List<RoomSlot>slotList = Arrays.asList(roomSlotArray);
