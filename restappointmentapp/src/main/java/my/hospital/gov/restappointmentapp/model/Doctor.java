@@ -5,6 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * 
+ * @author ikmalbadrol
+ * This class contain of doctor's attributes
+ *
+ */
 @Entity
 @Table(name = "doctor")
 public class Doctor {
@@ -12,18 +18,33 @@ public class Doctor {
 	@Id
 	@Column (name = "doctorID" )
 	private String doctorID;	
+	// doctorId
+	
+	
 	@Column (name = "doctorName" )
 	private String doctorName;
+	// name
+	
 	@Column (name = " doctorICNumber")
 	private String doctorICNumber;
+	// icNumber
+	
 	@Column (name = "doctorPhoneNumber" )
 	private String doctorPhoneNum;
+	// phoneNumber
+	
 	@Column (name = "doctorAge" )
 	private int doctorAge;
+	// age
+	
 	@Column (name = "doctorGender")
 	private String doctorGender;
+	// gender
+	
+	
 	@Column (name = "doctorAddress" )
 	private String doctorAddress;
+	// address
 	
 	public String getDoctorID() {
 		return doctorID;

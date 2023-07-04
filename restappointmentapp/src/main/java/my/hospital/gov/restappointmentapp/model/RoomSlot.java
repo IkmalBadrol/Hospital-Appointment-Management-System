@@ -7,6 +7,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * 
+ * @author ikmalbadrol
+ * This class contain of the room slot's attributes
+ *
+ */
 @Entity
 @Table (name = "roomslot")
 public class RoomSlot {
@@ -14,10 +20,13 @@ public class RoomSlot {
 	@Id
 	@Column(name = "roomSlotID")
 	private String roomSlotID;
+	
 	@Column(name = "timeStart")
 	private float timeStart;
+	
 	@Column(name = "timeEnd")
 	private float timeEnd;
+	
 	@ManyToOne
 	@JoinColumn (name = "roomID")
 	private Room room;

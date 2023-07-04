@@ -4,12 +4,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-/*
- * This class is to represent the hospital menu after log in to the system
+/**
+ * 
+ * @author norbalqish
+ *This class is to present the main menu of the program
  */
 @Controller
 public class MainMenuController {
 	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/mainmenu")
 	public String showMenuPage(Model model)
 	{

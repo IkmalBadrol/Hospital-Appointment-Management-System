@@ -20,8 +20,7 @@
 
     <div class="my-3">
       <form th:action="@{/patientdetail/save}" method="post" enctype="multipart/form-data" th:object="${patientDetail}"
-        style="max-width: 550px; margin: 0 auto"
-        id="confirmationForm" onsubmit="return confirm('Patient already registered. Do you want to view patients list? ')">
+        style="max-width: 550px; margin: 0 auto">
 
         <input type="hidden" th:field="*{patientID}" />
 
@@ -65,15 +64,19 @@
                 id="patientAge" required />
             </div>
           </div>
-                   <div class="form-group row">
-  <label class="col-sm-3 col-form-label" for="patientGender">Gender</label>
-  <div class="col-sm-9">
-    <select th:field="*{patientGender}" class="form-control" id="patientGender">
-      <option value="L">Male</option>
-      <option value="P">Female</option>
-    </select>
-  </div>
-</div>
+          
+          
+			                   <div class="form-group row">
+			  <label class="col-sm-3 col-form-label" for="patientGender">Gender</label>
+			  <div class="col-sm-9">
+			    <select th:field="*{patientGender}" class="form-control" id="patientGender">
+			      <option value="L">Male</option>
+			      <option value="P">Female</option>
+			    </select>
+			  </div>
+			</div>
+			
+			
                      <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="patientAddress">Address</label>
             <div class="col-sm-9">
@@ -86,7 +89,7 @@
           <div class="text-center">
             <input type="submit" value="Save" class="btn btn-primary btn-sm mr-2" />
            <!--   <input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary btn-sm"  />  -->
-            <a th:href="@{/mainmenu}" class="btn btn-secondary btn-sm">Cancel</a>
+            <a th:href="@{/patientdetail/list}" class="btn btn-secondary btn-sm">Cancel</a>
           </div>
         </div>
       </form>

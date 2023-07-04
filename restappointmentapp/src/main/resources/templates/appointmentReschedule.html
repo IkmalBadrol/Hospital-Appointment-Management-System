@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<head> 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
   <title>REST Consumer</title>
@@ -10,84 +10,103 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}" />
   <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  
+  <script type="text/javascript">
+	function checkPatient(){ 
+
+		
+		window.location.href= window.location.pathname+"?patientIC1="+ document.getElementById('patientID').value
+				+"&date1=" + document.getElementById('date').value
+		console.log(window.location.pathname)
+		console.log(document.getElementById('patientICNumber').value)
+	} 
+	
+	function validatePatientID(event){
+		if(document.getElementById('patientICVal').value == '0'){
+			event.preventDefault();
+			alert('error')
+		}
+	}
+  	</script>
+  
 </head>
 
 <body>
   <div th:replace="fragments/patientheader :: patientheader"></div>
 
-  <div class="container-fluid">
-    <h2 class="text-center">[[${pageTitle}]]</h2>
+  <div class="container-fluid" style="max-width: 1000px; margin: 0 auto;">
+    <h2 class="text-center">Reschedule Appointment </h2>
 
     <div class="my-3">
-      <form th:action="@{/patientdetail/save}" method="post" enctype="multipart/form-data" th:object="${patientDetail}"
-        style="max-width: 550px; margin: 0 auto"
-        id="confirmationForm" onsubmit="return confirm('Patient already registered. Do you want to view patients list? ')">
+      <form th:action="@{/appointments/save}" method="post" enctype="multipart/form-data" th:object="${appointmentReschedule}"
+        style="max-width: 550px; margin: 0 auto">
 
-        <input type="hidden" th:field="*{patientID}" />
+        <input type="hidden" th:field="*{appointmentID}" />
 
-<!-- <div class="form-group row"> -->
-<!--   <label class="col-sm-3 col-form-label" for="patientID">ID</label> -->
-<!--   <div class="col-sm-9"> -->
-<!--     <span th:text="*{patientID}" class="form-control font-weight-bold" id="patientID"></span> -->
-<!--   </div> -->
-<!-- </div> -->
-
-
-  <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="patientICNumber">IC Number</label>
+  		<div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="patientID">IC Number</label>
             <div class="col-sm-9">
-              <input type="text" th:field="*{patientICNumber}" minlength="12" maxlength="12" class="form-control"
-                id="patientICNumber" required />
-                <span th:if="${errorMessage}" class="text-danger" th:text="${errorMessage}"></span>
+              <input type="text" th:field="*{patientID.patientICNumber}" minlength="12" maxlength="12" required class="form-control"
+                id="patientID" data-validation-ignore/>
+                <input id="patientICVal" type="hidden" th:field="*{patientID.patientID}">
+          </div>
+       </div>
+        
+        
+        <div class="p-3">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="">Date</label>
+            <div class="col-sm-9">
+              <input type="date" th:field="*{date}" class="form-control" id="date1" onchange="findDate(event)"/>
             </div>
           </div>
         
-                    <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="patientName">Name</label>
-            <div class="col-sm-9">
-              <input type="text" th:field="*{patientName}" minlength="2" maxlength="256" class="form-control"
-                id="patientName" required />
-            </div>
-          </div>
-          
-                    <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="patientPhoneNumber">Phone Number</label>
-            <div class="col-sm-9">
-              <input type="text" th:field="*{patientPhoneNumber}" minlength="8" maxlength="11" class="form-control"
-                id="patientPhoneNumber" />
-            </div>
-          </div>
-          
-                    <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="patientAge">Age</label>
-            <div class="col-sm-9">
-              <input type="text" th:field="*{patientAge}" minlength="1" maxlength="2" class="form-control"
-                id="patientAge" required />
-            </div>
-          </div>
-                   <div class="form-group row">
-  <label class="col-sm-3 col-form-label" for="patientGender">Gender</label>
-  <div class="col-sm-9">
-    <select th:field="*{patientGender}" class="form-control" id="patientGender">
-      <option value="L">Male</option>
-      <option value="P">Female</option>
-    </select>
-  </div>
-</div>
-                     <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="patientAddress">Address</label>
-            <div class="col-sm-9">
-              <input type="text" th:field="*{patientAddress}" minlength="1" maxlength="256" class="form-control"
-                id="patientAddress" required />
-            </div>
-          </div>
+
+ <div  class="form-group row">
+			<label class ="col-sm-3 col-form-label" for="RoomSlot"> Room </label>
+
+			<div class="col-sm-9">
+				<select name="roomSlotID" id="roomSlotID" th:field="*{roomSlotID.roomSlotID}" required class="form-control"> 
+					<option th:each="docAppointment : ${slotList}"
+							th:value="${docAppointment.getRoomSlotID()}"
+							th:text ="${docAppointment.getRoomID().getDoctorID().getDoctorName()}
+							 + ', ' + ${docAppointment.getRoomID().getRoomName()} 
+							 + ', Slot (' + ${docAppointment.getTimeStart()}
+							 + '-' + ${docAppointment.getTimeEnd()} + ')'" />	
+				 </select> 
+		 </div> 
+	 </div>
+   
+       
+		<script>
+			 // Validate current and above date can be choose only
+		    // Get the input element
+		    var dateInput = document.getElementById('date');
+		    
+		    // Get the current date
+		    var currentDate = new Date();
+		    
+		    // Convert the current date to the required format (YYYY-MM-DD)
+		    var formattedDate = currentDate.toISOString().split('T')[0];
+		    
+		    // Set the minimum value of the input field to the current date
+		    dateInput.min = formattedDate;
+		    
+		    function findDate(e){
+		    	console.log(e.target)
+		    	window.location.href= window.location.pathname+"?patientIC1="+ document.getElementById('patientID').value
+				+"&date1=" + document.getElementById('date').value
+		    }	
+		    
+		    
+		</script>
 
 
-          <div class="text-center">
+
+            <div class="text-center">
             <input type="submit" value="Save" class="btn btn-primary btn-sm mr-2" />
-           <!--   <input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary btn-sm"  />  -->
-            <a th:href="@{/mainmenu}" class="btn btn-secondary btn-sm">Cancel</a>
-          </div>
+            <input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary btn-sm" />
+          </div>   
         </div>
       </form>
     </div>
@@ -98,7 +117,7 @@
   <script type="text/javascript">
     $(document).ready(function () {
       $("#btnCancel").on("click", function () {
-        window.location = "[[@{/patientdetail/list}]]";
+        window.location = "[[@{/mainmenu}]]";
       });
     });
   </script>

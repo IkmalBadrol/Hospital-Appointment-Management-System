@@ -23,74 +23,45 @@ import org.springframework.http.HttpEntity;
 
 import my.hospital.gov.restappointmentapp.model.PatientDetail;
 
+/**
+ * 
+ * @author norbalqish
+ * 
+ * This class is to present the list of all patients
+ * This class will present the specific patient details
+ * This class will insert, update or delete patient
+ */
+
 @Controller
 public class PatientDetailMenuController {
 
 	private String defaultURI = "http://localhost:8080/appointmentapp/api/patientdetails";
 
 
-//	public <HttpStatus> ResponseEntity getPatientDetails()
-//	{
-//		
-//		/*
-//		 * This method is tho consume a GET webservice
-//		 * and display list of record
-//		 */
-//		return null;
-//		
-//	}
-	
-	
-//	@GetMapping("/patientdetail/list")
-//	public ResponseEntity<String> getPatientDetails()
-//	{
-//		
-//		//The URI for GET patient details
-//		String uriPatient="http://localhost:8080/appointmentapp/api/patientdetails";
-//		
-//		//Get a list patient details from web service
-//		RestTemplate restTemplate=new RestTemplate();		
-//		ResponseEntity<PatientDetail[]> response=restTemplate.getForEntity(uriPatient, PatientDetail[].class);
-//		PatientDetail patientDetails[]=response.getBody();
-//		
-//		System.out.println(this.getClass().getSimpleName());
-//		System.out.println("Total records:"+patientDetails.length+"\n");
-//		
-//		
-//		for(PatientDetail patientDetail:patientDetails)
-//			{
-//				System.out.print(patientDetail.getPatientID()+"-");
-//				System.out.print(patientDetail.getPatientName()+"-");
-//				System.out.print(patientDetail.getPatientICNumber()+"-");
-//				System.out.println(patientDetail.getPatientPhoneNumber()+ "-");
-//				System.out.print(patientDetail.getPatientAge()+"-");
-//				System.out.print(patientDetail.getPatientGender()+"-");
-//				System.out.println(patientDetail.getPatientAddress()+"-");
-//			}
-//		
-//		
-//		//for postman status
-//		String message="Check out the message in the console";
-//		return new ResponseEntity<>(message,HttpStatus.OK);
-//	}
-	
-	
+	//Get patients list
 	@GetMapping("/patientdetail/list")
 	public String getPatientDetails(Model model,String keyword) {
 	    String uriPatient = "http://localhost:8080/appointmentapp/api/patientdetails";
 	    
 	    RestTemplate restTemplate = new RestTemplate();
-	    ResponseEntity<PatientDetail[]> response = restTemplate.getForEntity(uriPatient, PatientDetail[].class);
-	    PatientDetail[] patientDetails = response.getBody();
-	    List<PatientDetail> patientDetailList = Arrays.asList(patientDetails);
-	    model.addAttribute("patientDetails", patientDetailList);
 	    
+	    // Sends an HTTP GET request to the specified uriPatient
+	    ResponseEntity<PatientDetail[]> response = 
+	    		restTemplate.getForEntity(uriPatient, PatientDetail[].class);
+	    
+	    PatientDetail[] patientDetails = response.getBody();
+	    
+	    // Converts the array of PatientDetail objects to a List by using the Arrays.asList() method
+	    List<PatientDetail> patientDetailList = Arrays.asList(patientDetails);
+	    
+	    // This model is used to pass data from the controller to the view.
+	    model.addAttribute("patientDetails", patientDetailList);
 	    
 	    return "patientdetails";
 	}
 	
 	
-	
+	// Insert patients' details
 	@GetMapping("/patientdetail/{patientID}")
 	public String getPatientDetail(@PathVariable Integer patientID, Model model)
 	{
@@ -103,6 +74,7 @@ public class PatientDetailMenuController {
 		String pageTitle="New Patient";
 		PatientDetail patientDetail=new PatientDetail();
 
+		// Check existence of patient's ID
 		if(patientID>0)
 		{
 			//Generate new uri and append patientID to it
@@ -119,11 +91,11 @@ public class PatientDetailMenuController {
 		model.addAttribute("patientDetail",patientDetail);
 		model.addAttribute("pageTitle",pageTitle);
 		
-		return "patientdetailinfo";
-		
+		return "patientdetailinfo";	
 	}
 	
 	
+	// Save patient details into database
 	@RequestMapping("/patientdetail/save")
 	public String updatePatientDetail(@ModelAttribute PatientDetail patientDetail) throws Exception
 	{
@@ -133,7 +105,8 @@ public class PatientDetailMenuController {
 		
 		RestTemplate restTemplate=new RestTemplate();
 		
-		HttpEntity<PatientDetail> request  = new HttpEntity<PatientDetail>(patientDetail);
+		HttpEntity<PatientDetail> request  = 
+				new HttpEntity<PatientDetail>(patientDetail);
 		
 		String patientDetailResponse="";
 		
@@ -142,17 +115,17 @@ public class PatientDetailMenuController {
 			
 			if(!Strings.isBlank(patientDetail.getPatientICNumber()) )
 			{
-				//This block will update patient detail
-				
+				//This block will update patient detail				
 				//PUT method
 				restTemplate.put(defaultURI,request,PatientDetail.class);
 				
 			}
 			else
 			{
-				//add new patient			
+				// Add new patient if patient's IC are not registered			
 				//POST request			
-				patientDetailResponse=restTemplate.postForObject(defaultURI, request, String.class);
+				patientDetailResponse=
+						restTemplate.postForObject(defaultURI, request, String.class);
 			}
 			
 		} catch (Exception e) {
@@ -160,7 +133,7 @@ public class PatientDetailMenuController {
 			e.printStackTrace();
 		}
 
-	System.out.println(patientDetailResponse);
+		System.out.println(patientDetailResponse);
 		return "redirect:/patientdetail/list";
 		
 	}
@@ -169,8 +142,8 @@ public class PatientDetailMenuController {
 	
 	/*
 	 * This method is to delete patient detail by using patient ID
+	 * Only patient without appointment can be deleted
 	 * @param patientID
-	 * @return
 	 */
 	@RequestMapping("/patientdetail/delete/{patientID}")
 	public String deletePatientDetail(@PathVariable Integer patientID)
@@ -180,23 +153,12 @@ public class PatientDetailMenuController {
 		//Send DELETE request
 		RestTemplate restTemplate=new RestTemplate();
 		restTemplate.delete(uriPatient, Map.of("patientID",Integer.toString(patientID)));
+		
 		return "redirect:/patientdetail/list";
 		
 	}
 	
 	
-//	@GetMapping("/patientdetail/search/{patientICNumber}")
-//	public String searchPatientDetails(@PathVariable String patientIC PatientDetail patientDetail, Model model) {
-//	    String uriPatient = "http://localhost:8080/appointmentapp/api/patientdetails";
-//
-//	    RestTemplate restTemplate = new RestTemplate();
-//	    ResponseEntity<PatientDetail[]> response = restTemplate.getForEntity(uriPatient, PatientDetail[].class);
-//	    PatientDetail[] patientDetails = response.getBody();
-//	    List<PatientDetail> patientDetailList = Arrays.asList(patientDetails);
-//	    model.addAttribute("patientDetailList", patientDetailList);
-//	   // model.addAttribute("patientDetail", patientDetail);
-//	    
-//	    return "patientdetails";
-//	}
+
 	
 }

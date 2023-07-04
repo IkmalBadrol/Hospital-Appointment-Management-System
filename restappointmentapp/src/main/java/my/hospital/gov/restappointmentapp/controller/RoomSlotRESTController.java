@@ -13,6 +13,13 @@ import my.hospital.gov.restappointmentapp.model.PatientDetail;
 import my.hospital.gov.restappointmentapp.model.RoomSlot;
 import my.hospital.gov.restappointmentapp.repository.RoomSlotRepository;
 
+/**
+ * 
+ * @author ikmalbadrol
+ * This class is the REST Controller class for Room Slot
+ * This class does the web method for view room slot, find available date
+ *
+ */
 @RestController
 @RequestMapping("/api/roomslots")
 public class RoomSlotRESTController {
@@ -20,6 +27,7 @@ public class RoomSlotRESTController {
 	@Autowired
 	private RoomSlotRepository roomSlotRepository;
 	
+	// Get a list of room slots 
 	@GetMapping
 	public List<RoomSlot> getRoomSlots(){		
 		return roomSlotRepository.findAll();
@@ -29,6 +37,12 @@ public class RoomSlotRESTController {
 	@GetMapping("/{date}")
 	public List<RoomSlot> findByDate(@PathVariable String date){
 		return roomSlotRepository.findByDate(date);
+	}
+	
+	// Find available date for reschedule appointment
+	@GetMapping("/reschedule/{date}")
+	public List<RoomSlot> findByDateReschedule(@PathVariable String date1){
+		return roomSlotRepository.findByDateReschedule(date1);
 	}
 	
 }

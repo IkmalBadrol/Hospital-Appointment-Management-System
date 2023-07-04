@@ -7,15 +7,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * 
+ * @author norbalqish
+ * This class contain of all patients' attributes in the database
+ *
+ */
 @Entity
 @Table(name="Patient")
 public class PatientDetail {
 
+	// "name" is same as in database patient table
 
-
- //same as in database patient table
-
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name="patientID")
@@ -47,36 +50,42 @@ public class PatientDetail {
 	public void setPatientID(int patientID) {
 		this.patientID = patientID;
 	}
+	
 	public String getPatientName() {
 		return patientName;
 	}
 	public void setPatientName(String patientName) {
 		this.patientName = patientName;
 	}
+	
 	public String getPatientICNumber() {
 		return patientICNumber;
 	}
 	public void setPatientICNumber(String patientICNumber) {
 		this.patientICNumber = patientICNumber;
 	}
+	
 	public String getPatientPhoneNumber() {
 		return patientPhoneNumber;
 	}
 	public void setPatientPhoneNumber(String patientPhoneNumber) {
 		this.patientPhoneNumber = patientPhoneNumber;
 	}
+	
 	public int getPatientAge() {
 		return patientAge;
 	}
 	public void setPatientAge(int patientAge) {
 		this.patientAge = patientAge;
 	}
+	
 	public String getPatientGender() {
 		return patientGender;
 	}
 	public void setPatientGender(String patientGender) {
 		this.patientGender = patientGender;
 	}
+	
 	public String getPatientAddress() {
 		return patientAddress;
 	}

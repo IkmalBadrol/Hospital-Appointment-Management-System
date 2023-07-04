@@ -12,13 +12,22 @@ import org.springframework.web.client.RestTemplate;
 
 import my.hospital.gov.restappointmentapp.model.Doctor;
 
+/**
+ * 
+ * @author ikmalbadrol
+ * 
+ * This class is to get the list of all doctors 
+ *
+ */
 @Controller
 public class DoctorMenuController {
 
+	/**
+	 * This method ....
+	 * @return
+	 */
 	@GetMapping("/doctor/list")
 	public ResponseEntity<String> getDoctors(){
-		
-		//URL = http://localhost:8080/appointmentapp/doctor/list
 		
 		//The URI for GET Doctors data
 		String uri = "http://localhost:8080/appointmentapp/api/doctors";
@@ -34,7 +43,7 @@ public class DoctorMenuController {
 		System.out.println(this.getClass().getSimpleName());
 		System.out.println("Doctors Details " + doctors.length + "\n");
 		
-		//Display Doctors' information
+		//Display Doctors' information - for debugging
 		for(Doctor doctor:doctors) {
 			System.out.println(doctor.getDoctorID());
 			System.out.println(doctor.getDoctorName());
@@ -53,6 +62,12 @@ public class DoctorMenuController {
 		return new ResponseEntity<>(message, HttpStatus.OK);		
 	}
 	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	// Get doctors list
 	@GetMapping("/doctor/list-view")
 	public String getDoctors(Model model) {
 		
@@ -69,9 +84,10 @@ public class DoctorMenuController {
 		//Parse an array to a list object
 		List<Doctor> doctorList = Arrays.asList(doctors);
 		
-		//Attach list to model as attribute
+		//Attach doctorList to model as attribute
 		model.addAttribute("Doctors", doctorList);
 		
-		return "doctors";
+		// return html for doctor list
+		return "doctor";
 	}
 }

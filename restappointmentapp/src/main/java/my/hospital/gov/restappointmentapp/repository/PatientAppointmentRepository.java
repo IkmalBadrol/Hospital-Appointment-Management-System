@@ -11,10 +11,13 @@ import org.springframework.stereotype.Repository;
 
 import my.hospital.gov.restappointmentapp.model.PatientAppointment;
 
+/**
+ * 
+ * @author ikmalbadrol
+ *This class is the repository of patient appointment
+ */
+
 @Repository
 public interface PatientAppointmentRepository extends JpaRepository<PatientAppointment, Long> {
 
-
-	
-	
 }

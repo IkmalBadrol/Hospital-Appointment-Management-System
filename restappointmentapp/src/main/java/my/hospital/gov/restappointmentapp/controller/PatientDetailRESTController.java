@@ -18,6 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import my.hospital.gov.restappointmentapp.model.PatientDetail;
 import my.hospital.gov.restappointmentapp.repository.PatientDetailRepository;
 
+/**
+ * 
+ * @author norbalqish
+ * This class is the REST Controller dfor patient details
+ *
+ */
 @RestController
 @RequestMapping("/api/patientdetails")
 public class PatientDetailRESTController {
@@ -25,35 +31,41 @@ public class PatientDetailRESTController {
 	@Autowired
 	private PatientDetailRepository patientDetailRepository;
 	
+	// Get specific patient's detail by patientID
+	/**
+	 * 
+	 * @param patientID
+	 * @return
+	 */
 	@GetMapping("{patientID}")
 	public PatientDetail getPatientDetail(@PathVariable long patientID )
 	{
 		PatientDetail patientDetail=patientDetailRepository.findById(patientID).get();
-		return patientDetail;
-		
+		return patientDetail;		
 	}
 
+	// Get a list of patients' detail
 	@GetMapping
 	public List<PatientDetail> getPatientDetails()
 	{
 		return patientDetailRepository.findAll();
 	}
 	
-	
+	// Save patient's detail into database
 	@PostMapping()
 	public PatientDetail insertPatientDetail(@RequestBody PatientDetail patientDetail)
 	{
 		return patientDetailRepository.save(patientDetail);
 	}
 	
-	
+	// Updates patient's details
 	@PutMapping()
 	public PatientDetail updatePatientDetail(@RequestBody PatientDetail patientDetail)
 	{
 		return patientDetailRepository.save(patientDetail);
 	}
 	
-	
+	// Delete patient with specific patient ID
 	@DeleteMapping("{patientID}")
 	public ResponseEntity<HttpStatus> deletePatientDetail(@PathVariable long patientID)
 	{
@@ -64,6 +76,7 @@ public class PatientDetailRESTController {
 	
 	
 	// Validate patient IC Number to proceed for appointment
+	// Check for patinet's IC Number existence
 	@GetMapping("/patientIC/{patientICNumber}")
 	public PatientDetail findPatientByIC(@PathVariable String patientICNumber) {
 		

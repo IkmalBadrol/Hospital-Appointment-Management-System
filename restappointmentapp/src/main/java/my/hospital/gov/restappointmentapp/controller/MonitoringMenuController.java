@@ -24,21 +24,33 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpEntity;
 
+/**
+ * 
+ * @author idrismahmor
+ * This class contain of the monitoring patient controller
+ *
+ */
 @Controller
 public class MonitoringMenuController
 {
-	
-	
+		
 	int appointmentID;
 	Date appointmentDate;
 	PatientDetail patientID;
     RoomSlot roomSlotID;
 	
+    // restTemplate will send HTTP GET request to defaultURI
+    // Get a list of patients' appointment from web services
     private RestTemplate restTemplate = new RestTemplate();
     private String defaultURI = "http://localhost:8080/appointmentapp/api/Monitor";
 
 
     // get list of all appointment from both room1, room2, and room3 
+    /**
+     * 
+     * @param model
+     * @return
+     */
 	@GetMapping("/appointment/data")
 	public String getAppointment(Model model) {
 		
@@ -47,7 +59,8 @@ public class MonitoringMenuController
 		
 		//Get a list doctors from the web services
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<PatientAppointment[]> response = restTemplate.getForEntity(uri, PatientAppointment[].class);
+		ResponseEntity<PatientAppointment[]> response =
+				restTemplate.getForEntity(uri, PatientAppointment[].class);
 		
 		//Parse JSON data to array of object  
 		PatientAppointment appointment[] = response.getBody();
@@ -70,7 +83,8 @@ public class MonitoringMenuController
 		
 		//Get a list doctors from the web services
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<PatientAppointment[]> response = restTemplate.getForEntity(uri, PatientAppointment[].class);
+		ResponseEntity<PatientAppointment[]> response = 
+				restTemplate.getForEntity(uri, PatientAppointment[].class);
 		
 		//Parse JSON data to array of object  
 		PatientAppointment room1[] = response.getBody();
@@ -93,7 +107,8 @@ public class MonitoringMenuController
 		
 		//Get a list doctors from the web services
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<PatientAppointment[]> response = restTemplate.getForEntity(uri, PatientAppointment[].class);
+		ResponseEntity<PatientAppointment[]> response = 
+				restTemplate.getForEntity(uri, PatientAppointment[].class);
 		
 		//Parse JSON data to array of object  
 		PatientAppointment room2[] = response.getBody();
@@ -116,7 +131,8 @@ public class MonitoringMenuController
 		
 		//Get a list doctors from the web services
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<PatientAppointment[]> response = restTemplate.getForEntity(uri, PatientAppointment[].class);
+		ResponseEntity<PatientAppointment[]> response = 
+				restTemplate.getForEntity(uri, PatientAppointment[].class);
 		
 		//Parse JSON data to array of object  
 		PatientAppointment room3[] = response.getBody();
@@ -132,6 +148,7 @@ public class MonitoringMenuController
 	
 	// @ModelAttribute will bind the incoming request data to patientAppointment
 		// @RequestParam  retrieve appointmentID from request parameters
+	// retrieving the data of the selected appointment ID that having the appointment at room 1
 		@GetMapping("/appointment/updateStatusRoom1/{appointmentID}")
 		public String getPatientID1 (@PathVariable Integer appointmentID, Model model)
 		{
@@ -159,6 +176,7 @@ public class MonitoringMenuController
 			
 		}
 		
+		// retrieving the data of the selected appointment ID that having the appointment at room 2
 		@GetMapping("/appointment/updateStatusRoom2/{appointmentID}")
 		public String getPatientIDR2 (@PathVariable Integer appointmentID, Model model)
 		{
@@ -186,6 +204,7 @@ public class MonitoringMenuController
 			
 		}
 		
+		// retrieving the data of the selected appointment ID that having the appointment at room 3
 		@GetMapping("/appointment/updateStatusRoom3/{appointmentID}")
 		public String getPatientIDR3 (@PathVariable Integer appointmentID, Model model)
 		{
@@ -213,6 +232,7 @@ public class MonitoringMenuController
 			
 		}
 		
+		//updating the status of patient's appointment at room 1
 		@RequestMapping("/appointment/saveStatusRoom1")
 		public String updateAppointmentStatus1 (@ModelAttribute PatientAppointment appointment)
 		{
@@ -220,29 +240,31 @@ public class MonitoringMenuController
 			RestTemplate restTemplate = new RestTemplate();
 			
 			//Create request body
-			HttpEntity<PatientAppointment> request = new HttpEntity<PatientAppointment>(appointment);
+			HttpEntity<PatientAppointment> request = 
+					new HttpEntity<PatientAppointment>(appointment);
 			
 			String appointmentResponse = "";
 			
 			if (appointment.getAppointmentID() > 0)
 			{
-				//This block update a new order type and
+				//This block update a new appointment status and
 				//Send request as PUT
 				restTemplate.put(defaultURI, request, PatientAppointment.class);
 				
 			}else {
-				//This block add a new order type
+				//This block add a new appointment
 				//Send request as POST
 				appointmentResponse = restTemplate.postForObject(defaultURI, request, String.class);
 			}
 			
 			System.out.println(appointmentResponse);
 			
-			//Redirect request to display a list of order type
+			//Redirect request to display a list of appointment at room 1
 			return "redirect:/appointment/room1";
 			
 		}
 	
+		//updating the status of patient's appointment at room 2
 		@RequestMapping("/appointment/saveStatusRoom2")
 		public String updateAppointmentStatus2 (@ModelAttribute PatientAppointment appointment)
 		{
@@ -250,30 +272,31 @@ public class MonitoringMenuController
 			RestTemplate restTemplate = new RestTemplate();
 			
 			//Create request body
-			HttpEntity<PatientAppointment> request = new HttpEntity<PatientAppointment>(appointment);
+			HttpEntity<PatientAppointment> request = 
+					new HttpEntity<PatientAppointment>(appointment);
 			
 			String appointmentResponse = "";
 			
 			if (appointment.getAppointmentID() > 0)
 			{
-				//This block update a new order type and
+				//This block update a new appointment status and
 				//Send request as PUT
 				restTemplate.put(defaultURI, request, PatientAppointment.class);
 				
 			}else {
-				//This block add a new order type
+				//This block add a new appointment
 				//Send request as POST
 				appointmentResponse = restTemplate.postForObject(defaultURI, request, String.class);
 			}
 			
 			System.out.println(appointmentResponse);
 			
-			//Redirect request to display a list of order type
+			//Redirect request to display a list of appointment at room 2
 			return "redirect:/appointment/room2";
 			
 		}
-	
-	
+		
+		//updating the status of patient's appointment at room 3
 		@RequestMapping("/appointment/saveStatusRoom3")
 		public String updateAppointmentStatus3 (@ModelAttribute PatientAppointment appointment)
 		{
@@ -281,25 +304,26 @@ public class MonitoringMenuController
 			RestTemplate restTemplate = new RestTemplate();
 			
 			//Create request body
-			HttpEntity<PatientAppointment> request = new HttpEntity<PatientAppointment>(appointment);
+			HttpEntity<PatientAppointment> request = 
+					new HttpEntity<PatientAppointment>(appointment);
 			
 			String appointmentResponse = "";
 			
 			if (appointment.getAppointmentID() > 0)
 			{
-				//This block update a new order type and
+				//This block update a new appointment status and
 				//Send request as PUT
 				restTemplate.put(defaultURI, request, PatientAppointment.class);
 				
 			}else {
-				//This block add a new order type
+				//This block add a new appointment
 				//Send request as POST
 				appointmentResponse = restTemplate.postForObject(defaultURI, request, String.class);
 			}
 			
 			System.out.println(appointmentResponse);
 			
-			//Redirect request to display a list of order type
+			//Redirect request to display a list of appointment at room 3
 			return "redirect:/appointment/room3";
 			
 		}

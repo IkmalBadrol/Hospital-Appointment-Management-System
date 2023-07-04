@@ -31,27 +31,36 @@ import my.hospital.gov.restappointmentapp.model.RoomSlot;
 import my.hospital.gov.restappointmentapp.model.Room;
 import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 
+/**
+ * 
+ * @author ikmalbadrol
+ * This class is the controller for patient appointment scheduler
+ *
+ */
 @Controller
 public class PatientAppointmentScheduleController {
 	
 	private PatientAppointment patientAppointment;
-	private PatientDetail patientDetail;
-	@Autowired
-	private DoctorRepository doctorRepository;
 	
 	private String defaultURI = "http://localhost:8080/appointmentapp/api/appointments";
 
-	//
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/appointments/schedule")
 	public String getPatientAppointments(Model model) {
 		String uri = "http://localhost:8080/appointmentapp/api/appointments";
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<PatientAppointment[]> responseEntity = restTemplate.getForEntity(uri, PatientAppointment[].class);
+		ResponseEntity<PatientAppointment[]> responseEntity =
+				restTemplate.getForEntity(uri, PatientAppointment[].class);
 		
 		PatientAppointment patientAppointments[] = responseEntity.getBody();
 		
-		List<PatientAppointment>patientAppointmentList = Arrays.asList(patientAppointments);
+		List<PatientAppointment>patientAppointmentList = 
+				Arrays.asList(patientAppointments);
 		
 		model.addAttribute("patientAppointments", patientAppointmentList);
 		
@@ -69,7 +78,8 @@ public class PatientAppointmentScheduleController {
 		RestTemplate restTemplateAppointment = new RestTemplate();
 		
 		//Create request body
-		HttpEntity<PatientAppointment> request = new HttpEntity<PatientAppointment>(patientAppointment);
+		HttpEntity<PatientAppointment> request =
+				new HttpEntity<PatientAppointment>(patientAppointment);
 		
 		// Initialize empty String
 		String patientAppointmentResponse = "";
@@ -88,7 +98,8 @@ public class PatientAppointmentScheduleController {
 			//This block add a new order type
 			//Send request as POST
 			patientAppointment.setTreatmentStatus("unfinished");
-			patientAppointmentResponse = restTemplateAppointment.postForObject(defaultURI, request, String.class);
+			patientAppointmentResponse = 
+					restTemplateAppointment.postForObject(defaultURI, request, String.class);
 		}
 		
 		System.out.println(patientAppointmentResponse);
@@ -100,10 +111,10 @@ public class PatientAppointmentScheduleController {
 	
 
 
-	// Validate patient IC Number
+	// This block validate patient IC Number
+	// Check if patient IC number already registered or not
+	// Validate available room slots for selected date
 	@GetMapping("/appointments/{patientIC}")
-
-
 	public String getAppointment(@PathVariable String patientIC, Model model, 
 			@RequestParam(name = "patientIC1", required =false) String patientIC1, 
 			@RequestParam(name = "date", required =false)String date) {
@@ -114,11 +125,12 @@ public class PatientAppointmentScheduleController {
 		
 		PatientDetail currentPatientDetail = new PatientDetail();
 			
+		// Check if patient IC number exist or nor
 		if(!Strings.isBlank(patientIC1)) {
-			//String uri = defaultURI + "/" +patientIC;
-			
+		
 			RestTemplate restPatient = new RestTemplate();
-			currentPatientDetail = restPatient.getForObject("http://localhost:8080/appointmentapp/api/patientdetails/patientIC/" 
+			currentPatientDetail =
+					restPatient.getForObject("http://localhost:8080/appointmentapp/api/patientdetails/patientIC/" 
 			+ patientIC1, PatientDetail.class);	
 			patientAppointment.setPatientID(currentPatientDetail);			
 		}
@@ -129,17 +141,19 @@ public class PatientAppointmentScheduleController {
 		
 		// Check if date in null 
 		// and parse date into patientAppointemnt Object
-			if(!Strings.isBlank(date)) {
-				uri += "/"+ date;
-				patientAppointment.setDate(Date.valueOf(date));
-			}
+		if(!Strings.isBlank(date)) {
+			uri += "/"+ date;
+			patientAppointment.setDate(Date.valueOf(date));
+		}
 
-			
-			
+						
 		RestTemplate restTemplateRoomSlot = new RestTemplate();
-		//ResponseEntity<RoomSlot[]> responseRoomSlot = restTemplateRoomSlot.getForEntity("http://localhost:8080/appointmentapp/api/roomslots", RoomSlot[].class);
+		//ResponseEntity<RoomSlot[]> responseRoomSlot = 
+		//						restTemplateRoomSlot.getForEntity("http://localhost:8080/appointmentapp/api/roomslots", RoomSlot[].class);
 		
-		ResponseEntity<RoomSlot[]> responseRoomSlot = restTemplateRoomSlot.getForEntity(uri, RoomSlot[].class);
+		ResponseEntity<RoomSlot[]> responseRoomSlot =
+				restTemplateRoomSlot.getForEntity(uri, RoomSlot[].class);
+		
 		RoomSlot roomSlotArray[] = responseRoomSlot.getBody();
 		
 		List<RoomSlot>slotList = Arrays.asList(roomSlotArray);
@@ -167,7 +181,9 @@ public class PatientAppointmentScheduleController {
 		
 		//Get a list doctors from the web services
 		RestTemplate restTemplateAppointmentsList = new RestTemplate();
-		ResponseEntity<PatientAppointment[]> response = restTemplateAppointmentsList.getForEntity(uri, PatientAppointment[].class);
+		
+		ResponseEntity<PatientAppointment[]> response =
+				restTemplateAppointmentsList.getForEntity(uri, PatientAppointment[].class);
 		
 		//Parse JSON data to array of object  
 		PatientAppointment appointmentList[] = response.getBody();
@@ -182,28 +198,54 @@ public class PatientAppointmentScheduleController {
 	}
 	
 
-	
-//	@GetMapping("/appointments/appointmentReschedule/save")
-//	public String getPatientAppointments(@PathVariable Integer appointmentID ,Model model) {
-//		
-//		//The URI for GET Doctors
-//		String uri = "http://localhost:8080/appointmentapp/api/appointments";
-//		
-//		//Get a list doctors from the web services
-//		RestTemplate restTemplateAppointmentsList = new RestTemplate();
-//		ResponseEntity<PatientAppointment[]> response = restTemplateAppointmentsList.getForEntity(uri, PatientAppointment[].class);
-//		
-//		//Parse JSON data to array of object  
-//		PatientAppointment appointmentList[] = response.getBody();
-//			
-//		//Parse an array to a list object
-//		List<PatientAppointment> reschedule = Arrays.asList(appointmentList);
-//		
-//		//Attach list to model as attribute
-//		model.addAttribute("reschedule", reschedule);
-//		
-//		return "appointmentReschedule";
-//	}
+	// Get appointment ID to reschedule 
+	// Validate available room for selected date
+	@GetMapping("/appointments/reschedule/{appointmentID}")
+	public String getPatientAppointments(@PathVariable Integer appointmentID ,Model model,
+			@RequestParam(name = "date", required =false)String date) {
+		
+		PatientAppointment appointmentReschedule = new PatientAppointment();
+		
+		//Check if appointment id exist
+		if(appointmentID>0) {
+			String uriSchedule = defaultURI + "/" + appointmentID;
+			
+			RestTemplate restTemplateSchedule = new RestTemplate();
+			appointmentReschedule = 
+					restTemplateSchedule.getForObject(uriSchedule, PatientAppointment.class);
+			
+		}
+				
+		String uri ="http://localhost:8080/appointmentapp/api/roomslots";
+
+				
+		// Check if date in null 
+		// and parse date into patientAppointemnt Object
+		if(!Strings.isBlank(date)) {
+			uri += "/"+ date;
+			patientAppointment.setDate(Date.valueOf(date));
+		}
+
+		RestTemplate restTemplateRoomSlot = new RestTemplate();
+				
+		ResponseEntity<RoomSlot[]> responseRoomSlot =
+				restTemplateRoomSlot.getForEntity(uri, RoomSlot[].class);
+		
+		RoomSlot roomSlotArray[] = responseRoomSlot.getBody();
+					
+		List<RoomSlot>slotList = Arrays.asList(roomSlotArray);
+		
+		
+		// display doctor ID for each room
+		for( RoomSlot roomslot : slotList) {					
+			System.out.println("test data" + roomslot.getRoomID().getDoctorID());
+		}
+			
+		model.addAttribute("appointmentReschedule", appointmentReschedule);
+		model.addAttribute("slotList", slotList);
+		
+		return "appointmentReschedule";
+	}
 	
 	
 

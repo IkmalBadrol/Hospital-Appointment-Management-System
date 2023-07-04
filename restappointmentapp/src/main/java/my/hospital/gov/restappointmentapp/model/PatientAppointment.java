@@ -13,7 +13,13 @@ import jakarta.persistence.Id;
 	import jakarta.persistence.ManyToOne;
 	import jakarta.persistence.Table;
 import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
-
+/**
+ * This class represents an patient's appointment
+ * 
+ * @author ikmalbadrol
+ * 
+ *
+ */
 	//Assign variables to attributes in appointment table
 	@Entity
 	@Table (name = "appointment")
@@ -24,6 +30,7 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name = "appointmentID")
 		private int appointmentID;
+		// appointmentId
 		
 		@Column(name = "date")
 		private Date date;
@@ -60,20 +67,6 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 			this.date = date;
 		}
 		
-//		public Time getTime() {
-//			return time;
-//		}
-//		public void setTime(Time time) {
-//			this.time = time;
-//		}
-		
-//		public Doctor getDoctorID() {
-//			return doctorID;
-//		}
-//		public void setDoctorID(Doctor doctorID) {
-//			this.doctorID = doctorID;
-//		}
-		
 		public PatientDetail getPatientID() {
 			return patientID;
 		}
@@ -88,15 +81,6 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 		public void setRoomSlotID(RoomSlot roomSlotID) {
 			this.roomSlotID = roomSlotID;
 		}
-		
-
-//		public Staff getStaffID() {
-//			return staffID;
-//		}
-//		public void setStaffID(Staff staffID) {
-//			this.staffID = staffID;
-//		}
-	
 		
 		
 	}

@@ -8,7 +8,7 @@
 
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
@@ -19,7 +19,7 @@
   <div th:replace="fragments/patientheader :: patientheader"></div>
 
   <div class="container-fluid" style="max-width: 1000px; margin: 0 auto;">
-    <h2 class="text-center">Appointment List </h2>
+    <h2 class="text-center">Doctor List</h2>
 
     <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
       role="alert">
@@ -32,49 +32,42 @@
 
 
 
-    <div th:if="${apptList.size() > 0}">
+    <div th:if="${Doctors.size() > 0}">
       <table class="table table-hover table-responsive-xl">
         <thead class="thead-light">
           <tr>
-            <th scope="col">Appointment ID</th>
-            <th scope="col">Date </th>
-        	<th scope="col" >Patient Name</th>
-        	<th scope="col">Doctor Name </th>
-            <th scope="col">Room </th>
-            <th scope="col">Start Time </th>
-             <th scope="col">End Time </th>
-             <th scope="col">Reschedule</th> 
+            <th scope="col">ID</th>
+            <th style="width:40%" >Name</th>
+            <th scope="col">IC Number</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Age</th>
+            <th scope="col">Gender</th>
+             <th style="width:40%" >Address</th>
+            
           </tr>
         </thead>
-        
-        
         <tbody>
-          <tr th:each="Apptlist : ${apptList}">
-            <th scope="row">[[${Apptlist.appointmentID}]]</th>
-              <td>[[${Apptlist.date}]]</td>
-    	    <td>[[${Apptlist.patientID.patientName}]]</td>
-            <td>[[${Apptlist.roomSlotID.roomID.doctorID.doctorName}]]</td>
-            <td>[[${Apptlist.roomSlotID.roomID.roomName}]]</td>
-            <td>[[${Apptlist.roomSlotID.timeStart}]]</td>
-       	    <td>[[${Apptlist.roomSlotID.timeEnd}]]</td> 
+          <tr th:each="dr : ${Doctors}">
+            <th scope="row">[[${dr.doctorID}]]</th>
+            <td style="width:40%" >[[${dr.doctorName}]]</td>
+            <td>[[${dr.doctorICNumber}]]</td>
+            <td>[[${dr.doctorPhoneNum}]]</td>
+              <td>[[${dr.doctorAge}]]</td>
+              <td>[[${dr.doctorGender}]]</td>
+        <td style="width:40%" >[[${dr.doctorAddress}]]</td>
             
-           <td>
-             
-               <a th:href="@{'/appointments/reschedule/' + ${Apptlist.appointmentID}}" 
-               	title="Edit Or Reschedule Appointment"
-                class="fa-regular fa-pen-to-square icon-dark"></a>
-              &nbsp; 
-              
-              </td> 
+  
           </tr>
         </tbody>
       </table>
     </div>
 
-
+    <div class="" th:unless="${Doctors.size() > 0}">
+      <span>No record found!</span>
+    </div>
   </div>
 
-<!--    <div class="modal fade text-center" id="confirmModal">
+  <div class="modal fade text-center" id="confirmModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -95,27 +88,25 @@
       </div>
     </div>
   </div>
-  
-  -->
 
   <div th:replace="fragments/footer :: footer"></div>
 
   <script type="text/javascript">
-   $(document).ready(function () {
-	   <!--     $(".btn-delete").on("click", function (e) {
+    $(document).ready(function () {
+      $(".btn-delete").on("click", function (e) {
         e.preventDefault();
         link = $(this);
 
-        patientID = link.attr("appointmentID");
+        patientID = link.attr("patientID");
         $("#yesBtn").attr("href", link.attr("href"));
         $("#confirmText").html("Do you want to delete the  \<strong\>" + patientID + "\<\/strong\>?");
         $("#confirmModal").modal();
-      }); -->
+      });
 
       $("#btnClear").on("click", function (e) {
         e.preventDefault();
         $("#keyword").text("");
-        window.location = "[[@{/patientdetail/list}]]";
+        window.location = "[[@{/appointments/appointmentList}]]";
       });
     });
   </script>
