@@ -19,7 +19,7 @@ public class RoomSlot {
 
 	@Id
 	@Column(name = "roomSlotID")
-	private String roomSlotID;
+	private String roomSlotId;
 	
 	@Column(name = "timeStart")
 	private float timeStart;
@@ -33,11 +33,11 @@ public class RoomSlot {
 	
 	
 	public String getRoomSlotID() {
-		return roomSlotID;
+		return roomSlotId;
 	}
 	
-	public void setRoomSlotID(String roomSlotID) {
-		this.roomSlotID = roomSlotID;
+	public void setRoomSlotID(String roomSlotId) {
+		this.roomSlotId = roomSlotId;
 	}
 	
 	

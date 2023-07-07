@@ -40,7 +40,7 @@ public class PatientDetailMenuController {
 
 	//Get patients list
 	@GetMapping("/patientdetail/list")
-	public String getPatientDetails(Model model,String keyword) {
+	public String getPatientDetails(Model model) {
 	    String uriPatient = "http://localhost:8080/appointmentapp/api/patientdetails";
 	    
 	    RestTemplate restTemplate = new RestTemplate();

@@ -18,10 +18,10 @@ public class Room {
 
 	@Id
 	@Column (name = "roomID")
-	private String roomID;
+	private String roomId;
 	
 	@Column (name = "roomName")
-	private String roomName;
+	private String name;
 	// name
 	
 	@OneToOne
@@ -29,17 +29,18 @@ public class Room {
 	private Doctor doctor;
 	
 	public String getRoomID() {
-		return roomID;
+		return roomId;
 	}
-	public void setRoomID(String roomID) {
-		this.roomID = roomID;
+	public void setRoomID(String roomId) {
+		this.roomId = roomId;
 	}
 	
+	
 	public String getRoomName() {
-		return roomName;
+		return name;
 	}
-	public void setRoomName(String roomName) {
-		this.roomName = roomName;
+	public void setRoomName(String name) {
+		this.name = name;
 	}
 	
 	

@@ -54,7 +54,7 @@ public class MonitoringMenuController
 	@GetMapping("/appointment/data")
 	public String getAppointment(Model model) {
 		
-		//The URI for GET Doctors
+		//The URI for GET monitor
 		String uri = "http://localhost:8080/appointmentapp/api/Monitor";
 		
 		//Get a list doctors from the web services

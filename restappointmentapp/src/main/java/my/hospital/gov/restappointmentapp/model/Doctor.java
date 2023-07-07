@@ -1,4 +1,4 @@
-package my.hospital.gov.restappointmentapp.model;
+	package my.hospital.gov.restappointmentapp.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,81 +17,39 @@ public class Doctor {
 
 	@Id
 	@Column (name = "doctorID" )
-	private String doctorID;	
+	private String doctorId;	
 	// doctorId
 	
 	
 	@Column (name = "doctorName" )
-	private String doctorName;
+	private String name;
 	// name
 	
 	@Column (name = " doctorICNumber")
-	private String doctorICNumber;
+	private String icNumber;
 	// icNumber
 	
-	@Column (name = "doctorPhoneNumber" )
-	private String doctorPhoneNum;
-	// phoneNumber
-	
-	@Column (name = "doctorAge" )
-	private int doctorAge;
-	// age
-	
-	@Column (name = "doctorGender")
-	private String doctorGender;
-	// gender
-	
-	
-	@Column (name = "doctorAddress" )
-	private String doctorAddress;
-	// address
 	
 	public String getDoctorID() {
-		return doctorID;
+		return doctorId;
 	}
 	public void setDoctorID(String doctorID) {
-		this.doctorID = doctorID;
+		this.doctorId = doctorID;
 	}
 	
 	public String getDoctorName() {
-		return doctorName;
+		return name;
 	}
 	public void setDoctorName(String doctorName) {
-		this.doctorName = doctorName;
+		this.name = doctorName;
 	}
 	
 	public String getDoctorICNumber() {
-		return doctorICNumber;
+		return icNumber;
 	}
 	public void setDoctorICNumber(String doctorICNumber) {
-		this.doctorICNumber = doctorICNumber;
+		this.icNumber = doctorICNumber;
 	}
 	
-	public String getDoctorPhoneNum() {
-		return doctorPhoneNum;
-	}
-	public void setDoctorPhoneNum(String doctorPhoneNum) {
-		this.doctorPhoneNum = doctorPhoneNum;
-	}
 	
-	public int getDoctorAge() {
-		return doctorAge;
-	}
-	public void setDoctorAge(int doctorAge) {
-		this.doctorAge = doctorAge;
-	}
-	
-	public String getDoctorGender() {
-		return doctorGender;
-	}
-	public void setDoctorGender(String doctorGender) {
-		this.doctorGender = doctorGender;
-	}
-	
-	public String getDoctorAddress() {
-		return doctorAddress;
-	}
-	public void setDoctorAddress(String doctorAddress) {
-		this.doctorAddress = doctorAddress;
-	}
 }

@@ -22,75 +22,75 @@ public class PatientDetail {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name="patientID")
-	private int patientID;
+	private int patientId;
 	
 	@Column (name="patientName")
-	private String patientName;
+	private String name;
 	
 	@Column (name="patientICNumber")
-	private String patientICNumber;
+	private String icNumber;
 	
 	@Column (name="patientPhoneNumber")
-	private String patientPhoneNumber;
+	private String phoneNumber;
 	
 	@Column (name="patientAge")
-	private int patientAge;
+	private int age;
 	
 	@Column (name="patientGender")
-	private String  patientGender;
+	private String  gender;
 	
 	@Column (name="patientAddress")
-	private String patientAddress;
+	private String address;
 	
 	
 	
 	public int getPatientID() {
-		return patientID;
+		return patientId;
 	}
 	public void setPatientID(int patientID) {
-		this.patientID = patientID;
+		this.patientId = patientID;
 	}
 	
 	public String getPatientName() {
-		return patientName;
+		return name;
 	}
-	public void setPatientName(String patientName) {
-		this.patientName = patientName;
+	public void setPatientName(String name) {
+		this.name = name;
 	}
 	
 	public String getPatientICNumber() {
-		return patientICNumber;
+		return icNumber;
 	}
-	public void setPatientICNumber(String patientICNumber) {
-		this.patientICNumber = patientICNumber;
+	public void setPatientICNumber(String icNumber) {
+		this.icNumber = icNumber;
 	}
 	
 	public String getPatientPhoneNumber() {
-		return patientPhoneNumber;
+		return phoneNumber;
 	}
-	public void setPatientPhoneNumber(String patientPhoneNumber) {
-		this.patientPhoneNumber = patientPhoneNumber;
+	public void setPatientPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	
 	public int getPatientAge() {
-		return patientAge;
+		return age;
 	}
-	public void setPatientAge(int patientAge) {
-		this.patientAge = patientAge;
+	public void setPatientAge(int age) {
+		this.age = age;
 	}
 	
 	public String getPatientGender() {
-		return patientGender;
+		return gender;
 	}
-	public void setPatientGender(String patientGender) {
-		this.patientGender = patientGender;
+	public void setPatientGender(String gender) {
+		this.gender = gender;
 	}
 	
 	public String getPatientAddress() {
-		return patientAddress;
+		return address;
 	}
-	public void setPatientAddress(String patientAddress) {
-		this.patientAddress = patientAddress;
+	public void setPatientAddress(String address) {
+		this.address = address;
 	}
 	
 

@@ -41,8 +41,8 @@ public class RoomSlotRESTController {
 	
 	// Find available date for reschedule appointment
 	@GetMapping("/reschedule/{date}")
-	public List<RoomSlot> findByDateReschedule(@PathVariable String date1){
-		return roomSlotRepository.findByDateReschedule(date1);
+	public List<RoomSlot> findByDateReschedule(@PathVariable String date){
+		return roomSlotRepository.findByDateReschedule(date);
 	}
 	
 }

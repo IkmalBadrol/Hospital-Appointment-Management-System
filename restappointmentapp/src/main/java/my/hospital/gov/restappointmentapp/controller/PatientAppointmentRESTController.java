@@ -34,13 +34,13 @@ public class PatientAppointmentRESTController {
 	
 	// Patient appointment reschedule
 	// Get specific patient's appointment by appointmentID
-	@GetMapping("/{appointmentID}")
-	public PatientAppointment getPatientAppointment(@PathVariable long appointmentID) {
+	@GetMapping("/{appointmentId}")
+	public PatientAppointment getPatientAppointment(@PathVariable long appointmentId) {
 		
 		PatientAppointment patientAppointment= 
-				patientAppointmentRepository.findById(appointmentID).get();
+				patientAppointmentRepository.findById(appointmentId).get();
 		return patientAppointment;
-	}
+	}	
 	
 	
 	// Saved patient's appointment into database
@@ -52,13 +52,15 @@ public class PatientAppointmentRESTController {
 	
 	// Saved patient's appointment into database
 	@PutMapping
-	public PatientAppointment updatePatientAppointment(@RequestBody PatientAppointment patientAppointment) {
+	public PatientAppointment updatePatientAppointment(
+			@RequestBody PatientAppointment patientAppointment) {
 	    return patientAppointmentRepository.save(patientAppointment);
 	}
 	
 
 	@PutMapping("/Status")
-	public PatientAppointment updateAppointmentStatus(@RequestBody PatientAppointment patientAppointment) {
+	public PatientAppointment updateAppointmentStatus(
+			@RequestBody PatientAppointment patientAppointment) {
 	    return patientAppointmentRepository.save(patientAppointment);
 	}
 	

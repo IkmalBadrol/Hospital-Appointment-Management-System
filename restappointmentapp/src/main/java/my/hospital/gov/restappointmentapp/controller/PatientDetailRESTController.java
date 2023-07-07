@@ -21,7 +21,7 @@ import my.hospital.gov.restappointmentapp.repository.PatientDetailRepository;
 /**
  * 
  * @author norbalqish
- * This class is the REST Controller dfor patient details
+ * This class is the REST Controller for patient details
  *
  */
 @RestController
@@ -51,12 +51,12 @@ public class PatientDetailRESTController {
 		return patientDetailRepository.findAll();
 	}
 	
-	// Save patient's detail into database
-	@PostMapping()
-	public PatientDetail insertPatientDetail(@RequestBody PatientDetail patientDetail)
-	{
-		return patientDetailRepository.save(patientDetail);
-	}
+//	// Save patient's detail into database
+//	@PostMapping()
+//	public PatientDetail insertPatientDetail(@RequestBody PatientDetail patientDetail)
+//	{
+//		return patientDetailRepository.save(patientDetail);
+//	}
 	
 	// Updates patient's details
 	@PutMapping()
@@ -66,7 +66,7 @@ public class PatientDetailRESTController {
 	}
 	
 	// Delete patient with specific patient ID
-	@DeleteMapping("{patientID}")
+	@DeleteMapping("/delete/{patientID}")
 	public ResponseEntity<HttpStatus> deletePatientDetail(@PathVariable long patientID)
 	{
 		patientDetailRepository.deleteById(patientID);

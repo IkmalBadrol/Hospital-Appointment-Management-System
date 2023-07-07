@@ -45,13 +45,10 @@ public class DoctorMenuController {
 		
 		//Display Doctors' information - for debugging
 		for(Doctor doctor:doctors) {
+			
 			System.out.println(doctor.getDoctorID());
 			System.out.println(doctor.getDoctorName());
 			System.out.println(doctor.getDoctorICNumber());
-			System.out.println(doctor.getDoctorPhoneNum());
-			System.out.println(doctor.getDoctorAge());
-			System.out.println(doctor.getDoctorGender());
-			System.out.println(doctor.getDoctorAddress());
 		}
 		
 		//For Postman status

@@ -29,7 +29,7 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name = "appointmentID")
-		private int appointmentID;
+		private int appointmentId;
 		// appointmentId
 		
 		@Column(name = "date")
@@ -37,11 +37,11 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 	
 		@ManyToOne
 		@JoinColumn(name = "patientID")
-		private PatientDetail patientID;
+		private PatientDetail patientId;
 		
 		@ManyToOne
 		@JoinColumn(name = "roomSlotID")
-		private RoomSlot roomSlotID;
+		private RoomSlot roomSlotId;
 		
 		@Column(name="treatmentStatus")
 		private String treatmentStatus;
@@ -54,10 +54,10 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 			this.treatmentStatus = treatmentStatus;
 		}
 		public int getAppointmentID() {
-			return appointmentID;
+			return appointmentId;
 		}
-		public void setAppointmentID(int appointmentID) {
-			this.appointmentID = appointmentID;
+		public void setAppointmentID(int appointmentId) {
+			this.appointmentId = appointmentId;
 		}
 		
 		public Date getDate() {
@@ -68,18 +68,18 @@ import my.hospital.gov.restappointmentapp.repository.DoctorRepository;
 		}
 		
 		public PatientDetail getPatientID() {
-			return patientID;
+			return patientId;
 		}
-		public void setPatientID(PatientDetail patientID) {
-			this.patientID = patientID;
+		public void setPatientID(PatientDetail patientId) {
+			this.patientId = patientId;
 		}
 		
 		public RoomSlot getRoomSlotID()
         {
-			return roomSlotID;
+			return roomSlotId;
 		}
-		public void setRoomSlotID(RoomSlot roomSlotID) {
-			this.roomSlotID = roomSlotID;
+		public void setRoomSlotID(RoomSlot roomSlotId) {
+			this.roomSlotId = roomSlotId;
 		}
 		
 		
